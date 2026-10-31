@@ -41,8 +41,8 @@ button{cursor:pointer}
 .top p{margin:14px 0 0;color:var(--muted);font-size:16px;max-width:52ch}
 
 /* strategy builder promotion */
-.builder-promo{min-height:360px;letter-spacing:-.01em;position:relative;isolation:isolate;display:grid;grid-template-columns:minmax(0,1.6fr) minmax(280px,1fr);align-items:center;gap:40px;padding:32px;border:var(--line-width) solid color-mix(in srgb,var(--win) 25%,var(--line));border-radius:24px;overflow:hidden;background:linear-gradient(100deg,var(--bg),color-mix(in srgb,var(--win) 26%,var(--surface)));box-shadow:inset 0 1px 0 color-mix(in srgb,var(--win) 15%,transparent)}
-.builder-promo::after{content:"";position:absolute;top:0;left:8%;right:8%;height:1px;pointer-events:none;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--win) 75%,var(--fg)),transparent);opacity:.25}
+.builder-promo{min-height:360px;letter-spacing:-.01em;position:relative;isolation:isolate;display:grid;grid-template-columns:minmax(0,1.6fr) minmax(280px,1fr);align-items:center;gap:40px;padding:32px;border:var(--line-width) solid color-mix(in srgb,var(--win) 35%,var(--line));border-radius:24px;overflow:hidden;background:radial-gradient(90% 120% at 95% 10%,color-mix(in srgb,var(--win) 22%,transparent) 0%,transparent 60%),radial-gradient(70% 90% at 0% 100%,color-mix(in srgb,var(--win) 10%,transparent) 0%,transparent 65%),linear-gradient(115deg,var(--bg) 0%,color-mix(in srgb,var(--win) 12%,var(--surface)) 40%,color-mix(in srgb,var(--win) 32%,var(--surface)) 100%)}
+.builder-promo::after{content:"";position:absolute;top:0;left:12%;right:12%;height:1px;pointer-events:none;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--win) 85%,var(--fg)),transparent);opacity:.45}
 .builder-copy{min-width:0}
 .builder-kicker{display:block;margin-bottom:14px;color:var(--win);font-family:var(--font-body);font-size:11px;font-weight:600;line-height:1.5;letter-spacing:.02em;text-transform:uppercase}
 .builder-copy h2{margin:0;font-family:var(--font-display);font-size:clamp(26px,2.7vw,34px);font-weight:600;line-height:1.15;letter-spacing:-.035em;text-wrap:balance}
@@ -504,7 +504,7 @@ const STRATS = [
  {id:'mr', name:'Tidal Engine',      base:'SOL',  tf:'4h',  ret:137.6,  wr:61, dd:-9.5,  subs:1240, risk:'Low', seed:11,  kind:2, desc:'Fades SOL overextensions and scales in on confirmed reversals.'},
  {id:'rk', name:'Atlas Swarm',       base:'SUI',  tf:'1h',  ret:96.5,  wr:62, dd:-8.4,  subs:1480, risk:'Low', seed:121, kind:2, desc:'Combines range models to trade SUI at the edges and stand aside in trends.'},
  {id:'lt', name:'Helix Current',     base:'LINK', tf:'1d',  ret:84.0,  wr:63, dd:-10.4, subs:1105, risk:'Low', seed:101, kind:1, desc:"Learns LINK's weekly rhythm and sits out everything else."},
- {id:'om', name:'Orbit Momentum',    base:'ETH',  tf:'4h',  ret:42.3,  wr:57, dd:-12.1, subs:860,  risk:'Medium', seed:22,  kind:1, desc:'Rides RSI breakouts and cuts losers within two bars.'},
+ {id:'om', name:'Orbit Momentum',    base:'ETH',  tf:'4h',  ret:184.6,  wr:57, dd:-12.1, subs:860,  risk:'Low', seed:22,  kind:1, desc:'Rides RSI breakouts and cuts losers within two bars.'},
  {id:'sr', name:'Streak Rider',      base:'XRP',  tf:'4h',  ret:33.1,  wr:54, dd:-11.3, subs:655,  risk:'Medium', seed:66,  kind:1, desc:'Follows trend persistence, sizing up as streaks extend.'},
  {id:'ss', name:'Scalp Swarm',       base:'AVAX', tf:'15m', ret:27.8,  wr:58, dd:-8.9,  subs:970,  risk:'Medium', seed:77,  kind:5, desc:'A swarm of short-horizon models voting on every micro-move.'},
  {id:'dw', name:'Deep Water DCA',    base:'BNB',  tf:'1d',  ret:9.2,   wr:69, dd:-18.7, subs:301,  risk:'Low',    seed:88,  kind:3, desc:'Accumulates on deep pullbacks on a sentiment-weighted schedule.'},
