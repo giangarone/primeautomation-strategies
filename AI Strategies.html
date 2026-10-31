@@ -526,9 +526,9 @@ const KIND = [
 
 const STRATS = [
  {id:'hv', name:'Vol Harvester',     base:'HYPE', tf:'1h',  ret:118.4, wr:66, dd:-7.8,  subs:2310, risk:'Very high',   seed:33,  kind:0, desc:'Sells volatility spikes with an adaptive grid that retunes itself every hour.'},
- {id:'mr', name:'Tidal Engine',      base:'SOL',  tf:'4h',  ret:72.3,  wr:61, dd:-9.5,  subs:1240, risk:'Medium', seed:11,  kind:2, desc:'Fades SOL overextensions and scales in on confirmed reversals.'},
- {id:'rk', name:'Atlas Swarm',       base:'SUI',  tf:'1h',  ret:64.2,  wr:62, dd:-8.4,  subs:1480, risk:'Medium', seed:121, kind:2, desc:'Combines range models to trade SUI at the edges and stand aside in trends.'},
- {id:'lt', name:'Helix Current',     base:'LINK', tf:'1d',  ret:54.6,  wr:63, dd:-10.4, subs:1105, risk:'Medium', seed:101, kind:1, desc:"Learns LINK's weekly rhythm and sits out everything else."},
+ {id:'mr', name:'Tidal Engine',      base:'SOL',  tf:'4h',  ret:107.0,  wr:61, dd:-9.5,  subs:1240, risk:'Low', seed:11,  kind:2, desc:'Fades SOL overextensions and scales in on confirmed reversals.'},
+ {id:'rk', name:'Atlas Swarm',       base:'SUI',  tf:'1h',  ret:96.5,  wr:62, dd:-8.4,  subs:1480, risk:'Low', seed:121, kind:2, desc:'Combines range models to trade SUI at the edges and stand aside in trends.'},
+ {id:'lt', name:'Helix Current',     base:'LINK', tf:'1d',  ret:84.0,  wr:63, dd:-10.4, subs:1105, risk:'Low', seed:101, kind:1, desc:"Learns LINK's weekly rhythm and sits out everything else."},
  {id:'om', name:'Orbit Momentum',    base:'ETH',  tf:'4h',  ret:42.3,  wr:57, dd:-12.1, subs:860,  risk:'Medium', seed:22,  kind:1, desc:'Rides RSI breakouts and cuts losers within two bars.'},
  {id:'sr', name:'Streak Rider',      base:'XRP',  tf:'4h',  ret:33.1,  wr:54, dd:-11.3, subs:655,  risk:'Medium', seed:66,  kind:1, desc:'Follows trend persistence, sizing up as streaks extend.'},
  {id:'ss', name:'Scalp Swarm',       base:'AVAX', tf:'15m', ret:27.8,  wr:58, dd:-8.9,  subs:970,  risk:'Medium', seed:77,  kind:5, desc:'A swarm of short-horizon models voting on every micro-move.'},
@@ -707,7 +707,7 @@ const starBtn = (s, label) => `<button class="star" type="button" data-sid="${s.
 const subBtn = (s, extra='') => `<button class="btn-sub ${extra}" type="button" data-sid="${s.id}" data-kind="sub" aria-pressed="${SUBS.has(s.id)}">${SUBS.has(s.id) ? 'Subscribed ✓' : 'Subscribe ' + ICON.arrow}</button>`;
 const detailsBtn = s => `<button class="btn-ghost" type="button" data-open="${s.id}">Details</button>`;
 
-const lockedHTML = (s,i) => `<article class="card locked" data-id="${s.id}" style="--ch:${COIN[s.base]};--i:${i}">
+const lockedHTML = (s,i) => `<article class="card locked" data-id="${s.id}" style="${vars(s)};--i:${i}">
   <div class="head"><span class="coin" aria-hidden="true">${s.base}</span><div class="id"><h3>${s.name}</h3><span class="pair">${s.base}/USDT · ${s.T.length} trades</span></div>
     <span class="badge">${s.ret >= 50 ? 'Top performer' : 'Pro'}</span>${starBtn(s, s.name)}</div>
   <p class="desc">This model's logic and live results are available to Pro members only.</p>
