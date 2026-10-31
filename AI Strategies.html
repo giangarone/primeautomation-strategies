@@ -17,7 +17,7 @@
   --bg:#080808; --surface:#0C0C0C; --surface-2:#121212; --surface-3:rgba(255,255,255,.1);
   --line:#333333; --line-2:#333333; --line-width:0.5px;
   --fg:#e7eeea; --muted:#8b9792; --faint:rgba(255,255,255,.5);
-  --win:#14C784; --loss:#f2715d; --bt:#8f97ff; --gold:#f5c75b;
+  --win:#14C784; --loss:#f2715d; --bt:#6587FF; --gold:#f5c75b;
   --font-display:var(--font-body);
   --font-body:"Avenir Next",Arial,Helvetica,sans-serif;
   --font-mono:var(--font-body);
@@ -35,9 +35,7 @@ button{cursor:pointer}
 .wrap::before{content:"";position:absolute;inset:-120px 10% auto;height:420px;background:radial-gradient(50% 60% at 50% 40%,rgba(20,199,132,.09),transparent 70%);pointer-events:none;z-index:-1}
 
 /* header */
-.kicker{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--win);display:inline-flex;gap:8px;align-items:center}
-.kicker i{font-style:normal}
-.top h1{font-family:var(--font-display);font-weight:600;font-size:clamp(34px,5vw,60px);line-height:1.02;letter-spacing:-.03em;margin:14px 0 0;max-width:16ch;text-wrap:balance}
+.top h1{font-family:var(--font-display);font-weight:600;font-size:clamp(34px,5vw,60px);line-height:1.02;letter-spacing:-.03em;margin:0;max-width:16ch;text-wrap:balance}
 .top p{margin:14px 0 0;color:var(--muted);font-size:16px;max-width:52ch}
 
 /* controls */
@@ -154,7 +152,6 @@ dialog[open] .m-shell{animation:pop .34s cubic-bezier(.2,.8,.2,1)}
 .m-head{position:relative;display:flex;align-items:center;gap:14px;padding:16px 18px 16px 20px;border-bottom:var(--line-width) solid var(--line);flex-wrap:wrap}
 .m-head .id h3{font-size:21px}
 .m-head .tags{display:flex;gap:8px;align-items:center}
-.m-ret{font-family:var(--font-display);font-weight:700;font-size:22px;letter-spacing:-.02em;color:var(--return-color,hsl(var(--h),var(--s),calc(var(--l) + 6%)));font-variant-numeric:tabular-nums;margin-right:6px}
 .seg{display:inline-flex;padding:3px;border-radius:11px;background:var(--surface-2);border:var(--line-width) solid var(--line);gap:2px}
 .seg button{background:none;border:0;padding:7px 14px;border-radius:8px;color:var(--muted);font-size:13.5px;display:inline-flex;gap:7px;align-items:center;white-space:nowrap}
 .seg button:hover{color:var(--fg)}
@@ -175,13 +172,12 @@ dialog[open] .m-shell{animation:pop .34s cubic-bezier(.2,.8,.2,1)}
 .m-body{flex:1;min-height:0;overflow:auto;position:relative}
 .m-foot{position:relative;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px;border-top:var(--line-width) solid var(--line)}
 .m-foot .hint{color:var(--faint);font-size:12.5px;font-family:var(--font-mono)}
-.mod-bubble{display:inline-flex;align-items:center;gap:10px;padding:6px 16px 6px 6px;border-radius:999px;border:1px solid hsla(var(--h),var(--s),var(--l),.35);color:var(--fg);font-weight:500;font-size:14px;
-  background:linear-gradient(180deg,hsla(var(--h),var(--s),var(--l),.14),hsla(var(--h),var(--s),var(--l),.04));transition:border-color .25s}
-.mod-bubble:hover,.mod-bubble[aria-expanded="true"]{border-color:hsla(var(--h),var(--s),var(--l),.7)}
+.mod-bubble{display:inline-flex;align-items:center;gap:10px;padding:6px 16px 6px 6px;border-radius:999px;border:1px solid var(--line);color:var(--fg);font-weight:500;font-size:14px;
+  background:var(--surface);transition:background-color .25s}
+.mod-bubble:hover,.mod-bubble[aria-expanded="true"]{background:var(--surface-2)}
 .orb{position:relative;width:28px;height:28px;border-radius:50%;flex:none;display:grid;place-items:center;background:conic-gradient(from 0deg,#8f97ff,#14C784,#f5c75b,#e061f0,#8f97ff);animation:spin 7s linear infinite}
 .orb::after{content:"✦";position:absolute;inset:3px;border-radius:50%;background:#0d1112;display:grid;place-items:center;font-size:12px;color:#fff;animation:spin 7s linear infinite reverse}
 @keyframes spin{to{transform:rotate(1turn)}}
-.mod-bubble .lk{width:14px;height:14px;color:var(--gold)}
 .mod-pop{position:absolute;right:16px;bottom:66px;z-index:10;width:min(420px,calc(100% - 32px));max-height:min(560px,calc(100% - 140px));display:flex;flex-direction:column;
   background:rgba(14,18,19,.97);border:var(--line-width) solid var(--line-2);border-radius:18px;box-shadow:0 30px 80px -20px rgba(0,0,0,.9),0 0 50px -20px hsla(var(--h),var(--s),var(--l),.4);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);animation:pop .26s cubic-bezier(.2,.8,.2,1);transform-origin:bottom right}
 .mod-h{display:flex;align-items:center;gap:10px;padding:14px 14px 10px 16px}
@@ -337,7 +333,7 @@ dialog[open] .m-shell{animation:pop .34s cubic-bezier(.2,.8,.2,1)}
   dialog#dlg{width:100vw;height:100dvh}
   .m-shell{border-radius:0;border:0}
   .m-head{padding:12px 14px;gap:10px}
-  .m-ret,.m-acts .tx,.m-sep,.m-foot .hint{display:none}
+  .m-acts .tx,.m-sep,.m-foot .hint{display:none}
   .m-acts{order:5;width:100%;justify-content:flex-end}
   .m-acts .btn-sub,.m-acts .btn-unlock{flex:1}
   .m-foot{padding:10px 12px}
@@ -372,7 +368,6 @@ dialog[open] .m-shell{animation:pop .34s cubic-bezier(.2,.8,.2,1)}
 <body>
 <div class="wrap">
   <header class="top">
-    <span class="kicker"><i>✦</i>AI strategies</span>
     <h1>Strategies that trade themselves.</h1>
     <p>Each one is an AI model trained on its market. Pick one, subscribe, and it runs on your account.</p>
   </header>
@@ -812,8 +807,8 @@ function eqChart(s, o){
       const g = c.createLinearGradient(0, padT, 0, h - padB); g.addColorStop(0, col.replace('A', top)); g.addColorStop(1, col.replace('A', 0)); c.fillStyle = g; c.fill(); };
     const end = E.length - 1;
     if (o.mode === 'split'){
-      const fb = Math.max(from, s.fwdBar), BT = 'rgba(143,151,255,A)', FW = 'rgba(20,199,132,A)';
-      if (fb > from){ area(from, fb, BT, .22); path(from, fb); c.strokeStyle = '#8f97ff'; c.lineWidth = 2; c.lineJoin = 'round'; c.stroke(); }
+      const fb = Math.max(from, s.fwdBar), BT = 'rgba(101,135,255,A)', FW = 'rgba(20,199,132,A)';
+      if (fb > from){ area(from, fb, BT, .22); path(from, fb); c.strokeStyle = '#6587FF'; c.lineWidth = 2; c.lineJoin = 'round'; c.stroke(); }
       area(fb, end, FW, .26); path(fb, end); c.save(); c.strokeStyle = '#14C784'; c.lineWidth = 2; c.stroke(); c.restore();
       if (s.fwdBar >= from){ c.setLineDash([3,4]); c.strokeStyle = INK(.35); c.lineWidth = 1; line(c, X(s.fwdBar), padT, X(s.fwdBar), h - padB); c.setLineDash([]); }
     } else {
@@ -916,7 +911,6 @@ function paintHead(){
   const s = M.s, L = s.pro;
   headEl.innerHTML = `<span class="coin" aria-hidden="true">${s.base}</span>
     <div class="id"><h3 id="m-title">${L ? s.base + '/USDT' : s.name}</h3><span class="pair">${L ? 'Pro strategy' : s.base + '/USDT'} · ${s.tf} · ${s.T.length} trades</span></div>
-    <span class="m-ret">${fmt(s.ret)}</span>
     <div class="tags"><span class="risk" data-risk="${s.risk}">${s.risk} risk</span></div>
     <div class="m-acts">
       <button class="icon-btn" type="button" data-sid="${s.id}" data-kind="fav" aria-pressed="${FOLLOW.has(s.id)}" aria-label="Add to favourites" title="Add to favourites">${ICON.star.replace('fill="none"', `fill="${FOLLOW.has(s.id) ? 'currentColor' : 'none'}"`)}</button>
@@ -929,7 +923,7 @@ function paintHead(){
       <button role="tab" data-view="detailed" aria-selected="${M.view === 'detailed'}">${ICON.candle} Detailed</button>
     </div>
     <span class="hint">Backtest ${fmtD(s, s.T[0].ei)} – ${fmtD(s, s.B.length - 1)} · UTC</span>
-    <button class="mod-bubble" type="button" data-act="modify" aria-expanded="false" aria-controls="mod"><span class="orb" aria-hidden="true"></span>${L ? ICON.lock.replace('<svg', '<svg class="lk"') : ''}<span>Modify<span class="bl"> strategy</span></span></button>`;
+    <button class="mod-bubble" type="button" data-act="modify" aria-expanded="false" aria-controls="mod"><span class="orb" aria-hidden="true"></span><span>Modify<span class="bl"> strategy</span></span></button>`;
   modEl.hidden = true;
 }
 
