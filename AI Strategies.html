@@ -35,14 +35,13 @@ button{cursor:pointer}
 .kicker{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--win);display:inline-flex;gap:8px;align-items:center}
 .kicker i{font-style:normal;text-shadow:0 0 12px rgba(20,199,132,.9)}
 .top h1{font-family:var(--font-display);font-weight:600;font-size:clamp(34px,5vw,60px);line-height:1.02;letter-spacing:-.03em;margin:14px 0 0;max-width:16ch;text-wrap:balance;font-variation-settings:"opsz" 96}
-.top h1 em{font-style:normal;color:var(--win)}
 .top p{margin:14px 0 0;color:var(--muted);font-size:16px;max-width:52ch}
 
 /* controls */
 .tools{display:flex;flex-direction:column;gap:14px}
 .row1{display:flex;gap:10px;flex-wrap:wrap}
 .search{flex:1 1 320px;display:flex;align-items:center;gap:10px;height:46px;padding:0 12px 0 14px;background:var(--surface);border:var(--line-width) solid var(--line-2);border-radius:12px;transition:border-color .2s,box-shadow .2s}
-.search:focus-within{border-color:rgba(20,199,132,.5);box-shadow:0 0 0 4px rgba(20,199,132,.08)}
+.search:focus-within{border-color:rgba(255,255,255,.5);box-shadow:0 0 0 4px rgba(255,255,255,.08)}
 .search svg{width:17px;height:17px;color:var(--muted);flex:none}
 .search input{flex:1;min-width:0;background:none;border:0;outline:none;color:var(--fg);font:inherit;font-size:15px}
 .search input::placeholder{color:var(--faint)}
@@ -77,7 +76,7 @@ button{cursor:pointer}
 .v{font-family:var(--font-body);font-size:14.5px;font-variant-numeric:proportional-nums}
 .pos{color:var(--win)} .neg{color:var(--loss)}
 canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
-.risk{font-family:var(--font-mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;padding:3px 8px;border-radius:999px;border:0.5px solid color-mix(in srgb,currentColor 40%,transparent);color:var(--muted);background:color-mix(in srgb,currentColor 12%,transparent);white-space:nowrap}
+.risk{font-family:var(--font-mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;padding:3px 8px;border-radius:999px;border:0.5px solid color-mix(in srgb,currentColor 40%,transparent);color:var(--muted);background:color-mix(in srgb,currentColor 10%,transparent);white-space:nowrap}
 .risk[data-risk="Very low"]{color:#6587FF}
 .risk[data-risk="Low"]{color:#14C784}
 .risk[data-risk="Medium"]{color:#D3BE08}
@@ -116,7 +115,7 @@ canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 .sect{display:flex;flex-direction:column;gap:20px}
 .sect-h{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;padding-bottom:14px;border-bottom:var(--line-width) solid var(--line)}
 .sect-k{display:inline-flex;align-items:center;gap:7px;font-family:var(--font-mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--win);margin-bottom:8px}
-.sect-k i{font-style:normal;text-shadow:0 0 10px currentColor}
+.sect-k i{font-style:normal}
 .sect-pro .sect-k{color:var(--gold)}
 .sect-h h2{margin:0;font-family:var(--font-display);font-weight:600;font-size:clamp(22px,2.6vw,28px);letter-spacing:-.02em;font-variation-settings:"opsz" 60}
 .sect-h p{margin:5px 0 0;color:var(--muted);font-size:14.5px;max-width:60ch}
@@ -134,43 +133,14 @@ canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 .badge{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;padding:3px 8px;border-radius:999px;color:var(--gold);background:rgba(245,199,91,.08);border:1px solid rgba(245,199,91,.35);white-space:nowrap;flex:none}
 .card.locked{--h:42;--s:85%;--l:62%;--g:.45}
 .blur{filter:blur(6px);user-select:none;pointer-events:none}
-.card.locked .chart canvas{filter:blur(1.2px)}
-.lock{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:max-content;z-index:2;display:flex;align-items:center;gap:6px;padding:5px 11px 5px 6px;border-radius:999px;background:rgba(12,15,16,.78);border:1px solid rgba(245,199,91,.35);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.card.locked .chart canvas{filter:blur(4px)}
+.lock{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:max-content;z-index:2;display:flex;align-items:center;gap:6px;padding:5px 11px 5px 5px;border-radius:999px;background:rgba(12,15,16,.78);border:1px solid rgba(245,199,91,.35);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
 .ring{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;color:var(--gold);background:rgba(245,199,91,.12);flex:none}
 .ring svg{width:12px;height:12px}
 .lock b{font-family:var(--font-display);font-weight:600;font-size:13px}
-.btn-unlock{width:100%;background:linear-gradient(180deg,#f7cf6e,#e9b445);color:#1c1405;border:0;padding:11px 16px;border-radius:10px;font-weight:600;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-size:14px;transition:filter .15s}
+.btn-unlock{width:100%;background:var(--gold);color:#1c1405;border:0;padding:11px 16px;border-radius:10px;font-weight:600;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-size:14px;transition:filter .15s}
 .btn-unlock:hover{filter:brightness(1.06)}
 .btn-unlock svg{width:14px;height:14px}
-
-/* builder promo */
-.promo{position:relative;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);border:1px solid rgba(20,199,132,.18);border-radius:24px;overflow:hidden;
-  background:radial-gradient(70% 140% at 85% 30%,rgba(20,199,132,.15),transparent 60%),linear-gradient(115deg,#0a0f0e,#0a1613 55%,#0c1e18)}
-.promo .copy{padding:40px 36px;display:flex;flex-direction:column;gap:18px;position:relative;z-index:1;min-width:0}
-.promo .eyebrow{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--win)}
-.promo h2{margin:0;font-family:var(--font-display);font-weight:600;font-size:clamp(28px,3.4vw,42px);line-height:1.05;letter-spacing:-.025em;text-wrap:balance;font-variation-settings:"opsz" 96}
-.promo p{margin:0;color:#b6c2bd;font-size:15.5px;max-width:48ch}
-.feats{display:flex;flex-wrap:wrap;gap:10px 22px;margin:0;padding:0;list-style:none}
-.feats li{display:flex;align-items:center;gap:8px;font-weight:500;font-size:14px}
-.feats svg{width:17px;height:17px;color:var(--win);flex:none}
-.promo .cta{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:4px}
-.btn-create{background:#fff;color:#0b0e0d;border:0;padding:13px 20px;border-radius:11px;font-weight:600;display:inline-flex;align-items:center;gap:10px;font-size:15px;transition:background .15s}
-.btn-create:hover{background:#eef2f0}
-.btn-create svg{width:15px;height:15px}
-.plan{font-family:var(--font-mono);font-size:12px;color:var(--muted)}
-.plan b{color:var(--win);font-weight:500}
-.viz{position:relative;min-height:320px;mask-image:linear-gradient(90deg,transparent,#000 22%)}
-.float{position:absolute;z-index:1;font-family:var(--font-mono);padding:8px 14px;border-radius:10px;font-weight:600;font-size:14px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);animation:bob 5s ease-in-out infinite;white-space:nowrap}
-@keyframes bob{0%,100%{transform:rotate(var(--r)) translateY(0)}50%{transform:rotate(var(--r)) translateY(-6px)}}
-.f-rsi{--r:-4deg;top:14%;left:16%;background:rgba(36,42,92,.75);border:1px solid rgba(143,151,255,.35);color:#dfe2ff}
-.f-buy{--r:-5deg;top:28%;left:46%;background:rgba(16,74,50,.8);border:1px solid rgba(20,199,132,.5);color:#14C784;box-shadow:0 0 24px -6px rgba(20,199,132,.6);animation-delay:-1.6s}
-.f-sell{--r:-3deg;top:64%;left:30%;background:rgba(88,24,28,.8);border:1px solid rgba(242,113,93,.5);color:#ff9e8e;animation-delay:-3.2s}
-.mini{position:absolute;z-index:2;right:28px;top:50%;width:232px;transform:translateY(-50%) perspective(900px) rotateY(-16deg) rotateX(4deg) rotate(-3deg);
-  background:rgba(13,17,17,.9);border:var(--line-width) solid var(--line-2);border-radius:16px;padding:18px;box-shadow:0 30px 60px -20px rgba(0,0,0,.8),0 0 40px -10px rgba(20,199,132,.25)}
-.mini h4{margin:0 0 12px;font-family:var(--font-display);font-weight:600;font-size:16px}
-.mini dl{display:grid;grid-template-columns:auto auto;justify-content:space-between;gap:10px 12px;margin:0;font-size:13px}
-.mini dt{color:var(--muted)} .mini dd{margin:0;font-family:var(--font-mono);text-align:right}
-.mini .dep{margin-top:16px;width:100%;background:var(--surface-2);border:var(--line-width) solid var(--line-2);border-radius:10px;padding:9px;font-weight:600;font-size:13.5px}
 
 /* ───────── details modal ───────── */
 dialog#dlg{padding:0;border:0;background:transparent;color:var(--fg);width:min(1320px,calc(100vw - 32px));max-width:none;height:min(940px,calc(100dvh - 32px));max-height:none;margin:auto;overflow:visible}
@@ -358,8 +328,6 @@ dialog[open] .m-shell{animation:pop .34s cubic-bezier(.2,.8,.2,1)}
 .dv-lock .btn-unlock{width:auto;margin-top:6px}
 
 @media (max-width:1020px){
-  .promo{grid-template-columns:minmax(0,1fr)}
-  .viz{min-height:280px;mask-image:linear-gradient(180deg,transparent,#000 18%);border-top:var(--line-width) solid var(--line)}
   .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .sv{grid-template-columns:minmax(0,1fr)}
   .strip{grid-template-columns:repeat(4,minmax(0,1fr));row-gap:18px}
@@ -391,16 +359,11 @@ dialog[open] .m-shell{animation:pop .34s cubic-bezier(.2,.8,.2,1)}
   .fgroup .chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
   .chip{flex:none}
   .clear{margin-left:0}
-  .promo .copy{padding:28px 22px}
-  .mini{width:186px;right:14px;padding:14px}
-  .float{font-size:12px;padding:6px 10px}
-  .f-rsi{left:5%} .f-buy{left:30%} .f-sell{left:8%}
   .strip{grid-template-columns:repeat(2,minmax(0,1fr))}
   .m-head .tags .risk{display:none}
 }
 @media (prefers-reduced-motion:reduce){
   .card,.card:hover{animation:none;transition:none;translate:none}
-  .float{animation:none;transform:rotate(var(--r))}
   dialog[open] .m-shell{animation:none}
 }
 </style>
@@ -409,38 +372,10 @@ dialog[open] .m-shell{animation:pop .34s cubic-bezier(.2,.8,.2,1)}
 <div class="wrap">
   <header class="top">
     <span class="kicker"><i>✦</i>AI strategies</span>
-    <h1>Strategies that <em>trade themselves.</em></h1>
+    <h1>Strategies that trade themselves.</h1>
     <p>Each one is an AI model trained on its market. Pick one, subscribe, and it runs on your account.</p>
   </header>
 
-  <section class="promo" aria-labelledby="promo-h">
-    <div class="copy">
-      <span class="eyebrow">Build. Automate. Trade.</span>
-      <h2 id="promo-h">Create your own AI strategy</h2>
-      <p>Describe your idea in plain words or drag it together. Backtest it instantly and deploy it to your exchange. No coding required.</p>
-      <ul class="feats">
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg>Visual builder</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Backtest instantly</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 18a5 5 0 1 1 .9-9.9A6 6 0 0 1 19 10a4 4 0 0 1-1 8z"/></svg>Deploy to exchange</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.5a3.5 3.5 0 0 1 0 7M18 14.5a6.5 6.5 0 0 1 3.5 5.5"/></svg>Share &amp; earn</li>
-      </ul>
-      <div class="cta">
-        <button class="btn-create" type="button">Create strategy <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-        <span class="plan">Included in the <b>Builder plan</b></span>
-      </div>
-    </div>
-    <div class="viz" aria-hidden="true">
-      <canvas id="promo-cv"></canvas>
-      <span class="float f-rsi">RSI › 70</span>
-      <span class="float f-buy">▲ Buy</span>
-      <span class="float f-sell">▼ Sell</span>
-      <div class="mini">
-        <h4>Your strategy</h4>
-        <dl><dt>Entry</dt><dd>RSI › 70</dd><dt>Exit</dt><dd>RSI ‹ 30</dd><dt>Leverage</dt><dd>3x</dd><dt>Exchange</dt><dd>BloFin</dd></dl>
-        <div class="dep">Deploy</div>
-      </div>
-    </div>
-  </section>
 
   <div class="tools" role="search">
     <div class="row1">
@@ -627,21 +562,7 @@ const hrs = (s, bars) => { const h = bars*TFM[s.tf]/60; return h >= 48 ? Math.ro
 
 /* ── card curve renderer ── */
 const ease = x => 1 - Math.pow(1-x, 3);
-function drawPromo(it){
-  const {ctx:c, w, h} = it; if (!w || !h) return;
-  c.setTransform(DPR,0,0,DPR,0,0); c.clearRect(0,0,w,h);
-  const r = rng(5), n = Math.floor(w/10), o = []; let p = 0;
-  for (let i=0;i<n;i++){ const op = p, cl = p + gauss(r)*1.1 + .32; o.push({o:op, c:cl, h:Math.max(op,cl)+r()*1.3, l:Math.min(op,cl)-r()*1.3}); p = cl; }
-  const mn = Math.min(...o.map(x => x.l)), mx = Math.max(...o.map(x => x.h));
-  const Y = v => h*.82 - (h*.62)*(v-mn)/(mx-mn), cw = w/n;
-  o.forEach((x,i) => {
-    const up = x.c >= x.o, cx = cw*(i+.5), col = up ? 'rgba(20,199,132,' : 'rgba(242,113,93,', a = .25 + .55*i/n;
-    c.strokeStyle = col + a*.8 + ')'; c.lineWidth = 1; c.beginPath(); c.moveTo(cx, Y(x.h)); c.lineTo(cx, Y(x.l)); c.stroke();
-    c.fillStyle = col + a + ')'; c.fillRect(cx-2, Y(Math.max(x.o,x.c)), 4, Math.max(1, Math.abs(Y(x.o)-Y(x.c))));
-  });
-}
 function draw(it, t){
-  if (it.fn) return it.fn(it, t);
   const {ctx:c, w, h, s} = it; if (!w || !h) return;
   c.setTransform(DPR,0,0,DPR,0,0); c.clearRect(0,0,w,h);
   const d = s.eq, n = d.length, pt = 12, pb = 4, pr = 14, G = s.T0.g;
@@ -670,11 +591,11 @@ const ro = new ResizeObserver(es => es.forEach(e => {
   draw(it, performance.now()/1000);
 }));
 const io = new IntersectionObserver(es => es.forEach(e => { const it = items.find(i => i.cv === e.target); if (it) it.vis = e.isIntersecting; }), {rootMargin:'60px'});
-function register(cv, s, delay, fn, keep){
-  const it = {cv, ctx:cv.getContext('2d'), s, delay, fn, keep, vis:false, start:null, p:REDUCE?1:0, w:0, h:0};
+function register(cv, s, delay){
+  const it = {cv, ctx:cv.getContext('2d'), s, delay, vis:false, start:null, p:REDUCE?1:0, w:0, h:0};
   items.push(it); ro.observe(cv); io.observe(cv);
 }
-function clearItems(){ items = items.filter(it => { if (it.keep) return true; ro.unobserve(it.cv); io.unobserve(it.cv); return false; }); }
+function clearItems(){ items = items.filter(it => { ro.unobserve(it.cv); io.unobserve(it.cv); return false; }); }
 function frame(ts){
   const t = ts/1000;
   if (!document.querySelector('dialog[open]')) for (const it of items){
@@ -1247,7 +1168,6 @@ document.addEventListener('click', e => {
   if (b.closest('dialog') && set === FOLLOW) toast(FOLLOW.has(id) ? 'Added to favourites' : 'Removed from favourites');
 });
 
-register($('#promo-cv'), null, 0, drawPromo, true);
 render();
 requestAnimationFrame(frame);
 })();
