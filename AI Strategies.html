@@ -275,7 +275,7 @@ dialog[open] .m-shell{animation:pop .34s cubic-bezier(.2,.8,.2,1)}
 .sgrid>div:nth-child(odd){border-right:var(--line-width) solid var(--line)}
 .sgrid>div:nth-last-child(-n+2){border-bottom:0}
 .sgrid dt{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.sgrid dd{margin:4px 0 0;font-family:var(--font-mono);font-size:14.5px;font-variant-numeric:tabular-nums}
+.sgrid dd{margin:4px 0 0;font-family:var(--font-mono);font-size:14.5px;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
 .about{padding:16px 18px;display:flex;flex-direction:column;gap:12px}
 .about p{margin:0;color:#b6c2bd;font-size:14px;line-height:1.55}
 .m-cta{display:grid;gap:8px}
@@ -526,9 +526,9 @@ const KIND = [
 
 const STRATS = [
  {id:'hv', name:'Vol Harvester',     base:'HYPE', tf:'1h',  ret:118.4, wr:66, dd:-7.8,  subs:2310, risk:'Very high',   seed:33,  kind:0, desc:'Sells volatility spikes with an adaptive grid that retunes itself every hour.'},
- {id:'mr', name:'Midnight Reversion',base:'BTC',  tf:'4h',  ret:72.3,  wr:61, dd:-9.5,  subs:1240, risk:'Medium', seed:11,  kind:2, desc:'Fades overnight overextensions and scales in on confirmed reversals.'},
- {id:'rk', name:'Range Keeper',      base:'BTC',  tf:'1h',  ret:64.2,  wr:62, dd:-8.4,  subs:1480, risk:'Medium', seed:121, kind:2, desc:'Detects ranging regimes, trades the edges, stands aside in trends.'},
- {id:'lt', name:'Lunar Tides',       base:'ETH',  tf:'1d',  ret:54.6,  wr:63, dd:-10.4, subs:1105, risk:'Medium', seed:101, kind:1, desc:"Learns ETH's weekly rhythm and sits out everything else."},
+ {id:'mr', name:'Tidal Engine',      base:'SOL',  tf:'4h',  ret:72.3,  wr:61, dd:-9.5,  subs:1240, risk:'Medium', seed:11,  kind:2, desc:'Fades SOL overextensions and scales in on confirmed reversals.'},
+ {id:'rk', name:'Atlas Swarm',       base:'SUI',  tf:'1h',  ret:64.2,  wr:62, dd:-8.4,  subs:1480, risk:'Medium', seed:121, kind:2, desc:'Combines range models to trade SUI at the edges and stand aside in trends.'},
+ {id:'lt', name:'Helix Current',     base:'LINK', tf:'1d',  ret:54.6,  wr:63, dd:-10.4, subs:1105, risk:'Medium', seed:101, kind:1, desc:"Learns LINK's weekly rhythm and sits out everything else."},
  {id:'om', name:'Orbit Momentum',    base:'ETH',  tf:'4h',  ret:42.3,  wr:57, dd:-12.1, subs:860,  risk:'Medium', seed:22,  kind:1, desc:'Rides RSI breakouts and cuts losers within two bars.'},
  {id:'sr', name:'Streak Rider',      base:'XRP',  tf:'4h',  ret:33.1,  wr:54, dd:-11.3, subs:655,  risk:'Medium', seed:66,  kind:1, desc:'Follows trend persistence, sizing up as streaks extend.'},
  {id:'ss', name:'Scalp Swarm',       base:'AVAX', tf:'15m', ret:27.8,  wr:58, dd:-8.9,  subs:970,  risk:'Medium', seed:77,  kind:5, desc:'A swarm of short-horizon models voting on every micro-move.'},
@@ -708,9 +708,9 @@ const subBtn = (s, extra='') => `<button class="btn-sub ${extra}" type="button" 
 const detailsBtn = s => `<button class="btn-ghost" type="button" data-open="${s.id}">Details</button>`;
 
 const lockedHTML = (s,i) => `<article class="card locked" data-id="${s.id}" style="--ch:${COIN[s.base]};--i:${i}">
-  <div class="head"><span class="coin" aria-hidden="true">${s.base}</span><div class="id"><h3>${s.base}/USDT</h3><span class="pair blur" aria-hidden="true">Hidden model · ${s.tf}</span></div>
-    <span class="badge">${s.ret >= 50 ? 'Top performer' : 'Pro'}</span>${starBtn(s, 'this strategy')}</div>
-  <p class="desc blur" aria-hidden="true">This model's logic and live results are available to Pro members only.</p>
+  <div class="head"><span class="coin" aria-hidden="true">${s.base}</span><div class="id"><h3>${s.name}</h3><span class="pair">${s.base}/USDT · ${s.T.length} trades</span></div>
+    <span class="badge">${s.ret >= 50 ? 'Top performer' : 'Pro'}</span>${starBtn(s, s.name)}</div>
+  <p class="desc">This model's logic and live results are available to Pro members only.</p>
   <div class="chart" data-open="${s.id}"><canvas aria-hidden="true"></canvas>
     <div class="lock"><span class="ring">${ICON.lock}</span><b>Pro strategy</b></div></div>
   <div class="foot"><div class="ret"><span class="lbl">Total return</span><strong>${fmt(s.ret)}</strong><small>30d <b class="${cls(s.r30)}">${fmt(s.r30)}</b> · model hidden</small></div><span class="risk" data-risk="${s.risk}">${s.risk}</span></div>
@@ -743,7 +743,7 @@ let F = {risk:'', tf:'', coin:'', q:''}, queue = [], total = 0, moreEl = null, l
 const match = s => {
   const q = F.q.toLowerCase().replace(/\s+/g, ' ').trim();
   return (!F.risk || s.risk === F.risk) && (!F.tf || s.tf === F.tf) && (!F.coin || s.base === F.coin)
-    && (!q || (s.base + '/usdt').toLowerCase().includes(q.replace(/\s/g, '')) || (!s.pro && s.name.toLowerCase().includes(q)));
+    && (!q || (s.base + '/usdt').toLowerCase().includes(q.replace(/\s/g, '')) || s.name.toLowerCase().includes(q));
 };
 const filtered = () => !!(F.risk || F.tf || F.coin || F.q.trim());
 function hook(el, i){ const s = BY[el.dataset.id]; if (s) register(el.querySelector('canvas'), s, (i % 3)*90); }
@@ -757,7 +757,7 @@ function render(){
   if (curated){
     const taken = new Set();
     const pick = (arr, n) => { const out = arr.filter(s => !taken.has(s.id)).slice(0, n); out.forEach(s => taken.add(s.id)); return out; };
-    const pro    = pick(list.filter(s => s.pro), 3);
+    const pro    = pick(list.filter(s => PRO.has(s.id)), 3);
     const trend  = pick(list.filter(s => !s.pro).sort((a,b) => b.subs-a.subs), 3);
     const steady = pick(list.filter(s => !s.pro && s.ret > 0).sort((a,b) => b.dd-a.dd), 3);
     const grid = arr => `<div class="grid">${arr.map(cardHTML).join('')}</div>`;
@@ -987,7 +987,7 @@ function histChart(s, S){
 function paintHead(){
   const s = M.s, L = s.pro;
   headEl.innerHTML = `<span class="coin" aria-hidden="true">${s.base}</span>
-    <div class="id"><h3 id="m-title">${L ? s.base + '/USDT' : s.name}</h3><span class="pair">${L ? 'Pro strategy' : s.base + '/USDT'} · ${s.tf} · ${s.T.length} trades</span></div>
+    <div class="id"><h3 id="m-title">${s.name}</h3><span class="pair">${s.base}/USDT · ${s.tf} · ${s.T.length} trades</span></div>
     <div class="tags"><span class="risk" data-risk="${s.risk}">${s.risk} risk</span></div>
     <div class="m-acts">
       <button class="icon-btn" type="button" data-sid="${s.id}" data-kind="fav" aria-pressed="${FOLLOW.has(s.id)}" aria-label="Add to favourites" title="Add to favourites">${ICON.star.replace('fill="none"', `fill="${FOLLOW.has(s.id) ? 'currentColor' : 'none'}"`)}</button>
