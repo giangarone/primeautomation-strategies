@@ -41,7 +41,7 @@ button{cursor:pointer}
 .top p{margin:14px 0 0;color:var(--muted);font-size:16px;max-width:52ch}
 
 /* strategy builder promotion */
-.builder-promo{letter-spacing:-.01em;position:relative;isolation:isolate;display:grid;grid-template-columns:minmax(0,1.6fr) minmax(280px,1fr);align-items:center;gap:40px;padding:32px;border:var(--line-width) solid color-mix(in srgb,var(--win) 25%,var(--line));border-radius:24px;overflow:hidden;background:linear-gradient(100deg,var(--bg),color-mix(in srgb,var(--win) 26%,var(--surface)));box-shadow:inset 0 1px 0 color-mix(in srgb,var(--win) 15%,transparent)}
+.builder-promo{min-height:360px;letter-spacing:-.01em;position:relative;isolation:isolate;display:grid;grid-template-columns:minmax(0,1.6fr) minmax(280px,1fr);align-items:center;gap:40px;padding:32px;border:var(--line-width) solid color-mix(in srgb,var(--win) 25%,var(--line));border-radius:24px;overflow:hidden;background:linear-gradient(100deg,var(--bg),color-mix(in srgb,var(--win) 26%,var(--surface)));box-shadow:inset 0 1px 0 color-mix(in srgb,var(--win) 15%,transparent)}
 .builder-promo::after{content:"";position:absolute;top:0;left:8%;right:8%;height:1px;pointer-events:none;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--win) 75%,var(--fg)),transparent);opacity:.25}
 .builder-copy{min-width:0}
 .builder-kicker{display:block;margin-bottom:14px;color:var(--win);font-family:var(--font-body);font-size:11px;font-weight:600;line-height:1.5;letter-spacing:.02em;text-transform:uppercase}
@@ -57,20 +57,7 @@ button{cursor:pointer}
 .builder-cta:focus-visible{outline-color:var(--win)}
 .builder-plan{color:color-mix(in srgb,var(--muted) 80%,var(--fg));font-size:12px}
 .builder-plan strong{color:var(--win);font-weight:500}
-.builder-preview{position:relative;display:flex;align-items:center;justify-content:center;min-width:0;padding:10px 14px}
-.builder-chart{position:absolute;inset:0;width:100%;height:100%;color:var(--win);opacity:.55;pointer-events:none}
-.builder-example{position:relative;width:100%;max-width:290px;border:var(--line-width) solid var(--line);border-radius:16px;background:var(--surface);box-shadow:0 18px 40px -16px color-mix(in srgb,var(--bg) 75%,transparent);overflow:hidden}
-.builder-example-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px;border-bottom:var(--line-width) solid var(--line);background:var(--surface-2)}
-.builder-example-head strong{font-size:14px;font-weight:600;letter-spacing:-.015em}
-.builder-example-head span{border:var(--line-width) solid var(--line);border-radius:8px;padding:2px 8px;font-size:11px;color:var(--muted);background:var(--surface-2)}
-.builder-example dl{display:grid;grid-template-columns:1fr auto;gap:14px 16px;margin:0;padding:18px;font-size:13px}
-.builder-example dt{color:var(--muted)}
-.builder-example dd{margin:0;text-align:right;font-variant-numeric:tabular-nums}
-.builder-signal{display:inline-flex;align-items:center;gap:6px}
-.builder-signal::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--win)}
-.builder-signal.exit::before{background:var(--loss)}
-.builder-example-foot{display:flex;align-items:center;justify-content:center;gap:8px;margin:0 18px 18px;padding:10px;border:var(--line-width) solid var(--line-2);border-radius:10px;background:var(--surface-2);color:var(--fg);font-size:13px;font-weight:500}
-.builder-example-foot svg{width:14px;height:14px;color:var(--win)}
+.builder-preview{position:relative;align-self:stretch;min-width:0}
 
 /* controls */
 .tools{display:flex;flex-direction:column;gap:14px}
@@ -132,10 +119,10 @@ canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 
 /* grid */
 .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
-.card{position:relative;display:flex;flex-direction:column;border:0.5px solid #333333;border-radius:18px;overflow:hidden;
-  background:#0C0C0C;
+.card{position:relative;display:flex;flex-direction:column;border:var(--line-width) solid var(--line);border-radius:18px;overflow:hidden;
+  background:var(--surface);
   transition:translate .45s cubic-bezier(.2,.8,.2,1),background-color .35s ease;animation:rise .6s cubic-bezier(.2,.7,.2,1) backwards;animation-delay:calc(var(--i)*60ms);will-change:translate}
-.card:hover{translate:0 -4px;background:#121212}
+.card:hover{translate:0 -4px;background:var(--surface-2)}
 @keyframes rise{from{opacity:0;transform:translateY(10px)}}
 .card .head{display:flex;align-items:center;gap:12px;padding:18px 18px 0}
 .card .desc{margin:10px 18px 0;color:var(--muted);font-size:13.5px;line-height:1.5;min-height:2.9em}
@@ -143,6 +130,9 @@ canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 .card .foot{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;padding:6px 18px 0}
 .card .stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:16px 18px 0;padding-top:14px;border-top:0.5px solid #333333}
 .card .act{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;padding:16px 18px 18px}
+.card--builder{position:absolute;top:0;right:0;width:100%;max-width:360px;animation:none;transition:none;will-change:auto;box-shadow:0 18px 40px -16px color-mix(in srgb,var(--bg) 75%,transparent)}
+.card--builder:hover{translate:none;background:var(--surface)}
+.card--builder .chart{height:110px}
 .empty{grid-column:1/-1;color:var(--muted);padding:40px 0;text-align:center}
 
 /* sections */
@@ -385,7 +375,7 @@ dialog[open] .m-shell{animation:pop .34s cubic-bezier(.2,.8,.2,1)}
   .bpane{padding:16px}
 }
 @media (max-width:640px){
-  .builder-promo{grid-template-columns:minmax(0,1fr);padding:24px;gap:24px}
+  .builder-promo{min-height:0;grid-template-columns:minmax(0,1fr);padding:24px;gap:24px}
   .builder-preview{display:none}
   .builder-features{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 12px}
   .builder-features li{align-items:flex-start;font-size:12px}
@@ -432,22 +422,7 @@ dialog[open] .m-shell{animation:pop .34s cubic-bezier(.2,.8,.2,1)}
         <span class="builder-plan">Included in the <strong>Builder plan</strong></span>
       </div>
     </div>
-    <div class="builder-preview" aria-hidden="true">
-      <svg class="builder-chart" viewBox="0 0 360 280" fill="none" preserveAspectRatio="none">
-        <path d="M0 70h360M0 140h360M0 210h360M60 0v280M120 0v280M180 0v280M240 0v280M300 0v280" stroke="currentColor" stroke-width=".5" opacity=".25"/>
-        <path d="M0 240 18 226 30 235 48 195 66 202 84 164 102 178 120 150 138 165 156 118 174 135 192 106 210 122 228 78 246 94 264 58 282 76 300 44 318 59 336 26 360 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      <div class="builder-example">
-        <div class="builder-example-head"><strong>Your strategy</strong><span>Draft</span></div>
-        <dl>
-          <dt>Entry</dt><dd><span class="builder-signal">RSI &gt; 70</span></dd>
-          <dt>Exit</dt><dd><span class="builder-signal exit">RSI &lt; 30</span></dd>
-          <dt>Leverage</dt><dd>3×</dd>
-          <dt>Exchange</dt><dd>BloFin</dd>
-        </dl>
-        <div class="builder-example-foot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4 4L19 6"/></svg>Ready to deploy</div>
-      </div>
-    </div>
+    <div class="builder-preview" id="builder-preview" aria-hidden="true" inert></div>
   </section>
 
   <div class="tools" role="search">
@@ -664,17 +639,17 @@ const ro = new ResizeObserver(es => es.forEach(e => {
   draw(it, performance.now()/1000);
 }));
 const io = new IntersectionObserver(es => es.forEach(e => { const it = items.find(i => i.cv === e.target); if (it) it.vis = e.isIntersecting; }), {rootMargin:'60px'});
-function register(cv, s, delay){
-  const it = {cv, ctx:cv.getContext('2d'), s, delay, vis:false, start:null, p:REDUCE?1:0, w:0, h:0};
+function register(cv, s, delay, persistent = false){
+  const it = {cv, ctx:cv.getContext('2d'), s, delay, persistent, vis:false, start:null, p:REDUCE || persistent?1:0, w:0, h:0};
   items.push(it); ro.observe(cv); io.observe(cv);
 }
-function clearItems(){ items = items.filter(it => { ro.unobserve(it.cv); io.unobserve(it.cv); return false; }); }
+function clearItems(){ items = items.filter(it => { if (it.persistent) return true; ro.unobserve(it.cv); io.unobserve(it.cv); return false; }); }
 function frame(ts){
   const t = ts/1000;
   if (!document.querySelector('dialog[open]')) for (const it of items){
     if (!it.vis) continue;
     if (it.start === null) it.start = ts + it.delay;
-    it.p = Math.max(0, Math.min(1, (ts - it.start)/1300));
+    it.p = it.persistent ? 1 : Math.max(0, Math.min(1, (ts - it.start)/1300));
     draw(it, t);
   }
   requestAnimationFrame(frame);
@@ -1239,6 +1214,12 @@ document.addEventListener('click', e => {
   set.has(id) ? set.delete(id) : set.add(id); sync(id);
   if (b.closest('dialog') && set === FOLLOW) toast(FOLLOW.has(id) ? 'Added to favourites' : 'Removed from favourites');
 });
+
+const builderPreview = $('#builder-preview'), builderStrategy = BY.om;
+builderPreview.innerHTML = cardHTML(builderStrategy, 0);
+const builderCard = builderPreview.firstElementChild;
+builderCard.classList.add('card--builder');
+register(builderCard.querySelector('canvas'), builderStrategy, 0, true);
 
 render();
 requestAnimationFrame(frame);
