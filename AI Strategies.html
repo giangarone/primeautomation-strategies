@@ -728,6 +728,18 @@ const match = s => {
 };
 const filtered = () => !!(F.risk || F.tf || F.coin || F.q.trim());
 function hook(el, i){ const s = BY[el.dataset.id]; if (s) register(el.querySelector('canvas'), s, (i % 3)*90); }
+function countUpInit(el){
+  const num = el.querySelector('.ret-num'); if (!num || num.dataset.ready) return; num.dataset.ready = '1';
+  const target = parseFloat(num.dataset.target);
+  if (REDUCE){ num.textContent = fmt(target); return; }
+  const obs = new IntersectionObserver(es => { if (es[0].isIntersecting){ obs.disconnect(); animateCount(num, target); } }, {threshold:.25});
+  obs.observe(num);
+}
+function animateCount(num, target){
+  const dur = 1200, start = performance.now();
+  const step = now => { const t = Math.min(1,(now-start)/dur), e = 1 - Math.pow(1-t,4); num.textContent = fmt(target*e); if (t < 1) requestAnimationFrame(step); else num.textContent = fmt(target); };
+  requestAnimationFrame(step);
+}
 
 function render(){
   clearItems(); gen++;
@@ -1226,6 +1238,9 @@ builderPreview.innerHTML = cardHTML(builderStrategy, 0);
 const builderCard = builderPreview.firstElementChild;
 builderCard.classList.add('card--builder');
 register(builderCard.querySelector('canvas'), builderStrategy, 0, true);
+const builderRet = builderCard.querySelector('.ret strong');
+if (builderRet){ builderRet.classList.add('ret-num'); builderRet.dataset.target = builderStrategy.ret; builderRet.textContent = fmt(0); }
+countUpInit(builderCard);
 
 render();
 requestAnimationFrame(frame);
