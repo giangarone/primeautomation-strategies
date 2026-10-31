@@ -13,7 +13,7 @@
   color-scheme:dark;
   --bg:#080808; --surface:#0C0C0C; --surface-2:#121212; --surface-3:rgba(255,255,255,.1);
   --line:#333333; --line-2:#333333; --line-width:0.5px;
-  --fg:#e7eeea; --muted:#8b9792; --faint:#5a6561;
+  --fg:#e7eeea; --muted:#8b9792; --faint:rgba(255,255,255,.5);
   --win:#14C784; --loss:#f2715d; --bt:#8f97ff; --gold:#f5c75b;
   --font-display:"Bricolage Grotesque","Avenir Next",system-ui,sans-serif;
   --font-body:"Geist",system-ui,-apple-system,"Segoe UI",sans-serif;
@@ -59,7 +59,7 @@ button{cursor:pointer}
 .clear:hover{color:var(--fg)}
 .empty .clear{margin:12px auto 0;display:block}
 .chips{display:flex;gap:6px;flex-wrap:wrap}
-.chip{background:transparent;border:var(--line-width) solid var(--line-2);padding:6px 14px;border-radius:999px;color:var(--muted);font-size:13.5px;transition:all .15s}
+.chip{background:var(--surface);border:var(--line-width) solid var(--line-2);padding:6px 14px;border-radius:999px;color:var(--muted);font-size:13.5px;transition:all .15s}
 .chip:hover{color:var(--fg);border-color:rgba(214,236,226,.3)}
 .chip[aria-pressed="true"]{background:var(--fg);color:#0b0e0d;border-color:var(--fg)}
 .sel{background:var(--surface);border:var(--line-width) solid var(--line-2);border-radius:10px;padding:9px 32px 9px 12px;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238b9792' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
@@ -76,7 +76,7 @@ button{cursor:pointer}
 .v{font-family:var(--font-body);font-size:14.5px;font-variant-numeric:proportional-nums}
 .pos{color:var(--win)} .neg{color:var(--loss)}
 canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
-.risk{font-family:var(--font-mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;padding:3px 8px;border-radius:999px;border:0.5px solid color-mix(in srgb,currentColor 40%,transparent);color:var(--muted);background:color-mix(in srgb,currentColor 10%,transparent);white-space:nowrap}
+.risk{font-size:12px;letter-spacing:-.03em;padding:2px 8px;border-radius:8px;border:0.5px solid color-mix(in srgb,currentColor 50%,transparent);color:var(--muted);background:color-mix(in srgb,currentColor 12%,transparent);white-space:nowrap}
 .risk[data-risk="Very low"]{color:#6587FF}
 .risk[data-risk="Low"]{color:#14C784}
 .risk[data-risk="Medium"]{color:#D3BE08}
@@ -718,7 +718,6 @@ function loadMore(instant){
     loading = false;
     const shown = total - queue.length, n = document.getElementById('s-all-n');
     if (n) n.textContent = `${shown} of ${total}`;
-    if (!queue.length && total) sentEl.textContent = `That's all ${total} strategies`;
     else if (nearBottom()) loadMore();
   }, instant ? 0 : 650);
 }
