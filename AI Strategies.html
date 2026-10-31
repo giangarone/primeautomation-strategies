@@ -77,14 +77,19 @@ button{cursor:pointer}
 .v{font-family:var(--font-mono);font-size:14.5px;font-variant-numeric:tabular-nums}
 .pos{color:var(--win)} .neg{color:var(--loss)}
 canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
-.risk{font-family:var(--font-mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;padding:4px 9px;border-radius:999px;border:1px solid var(--line-2);color:var(--muted);white-space:nowrap}
+.risk{font-family:var(--font-mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;padding:4px 9px;border-radius:999px;border:0;color:var(--muted);white-space:nowrap}
+.risk[data-risk="Very low"]{color:#6587FF;background:#181C2E}
+.risk[data-risk="Low"]{color:#14C784;background:#0F1F18}
+.risk[data-risk="Medium"]{color:#D3BE08;background:#221E0E}
+.risk[data-risk="High"]{color:#F58546;background:#241712}
+.risk[data-risk="Very high"]{color:#FA4749;background:#271617}
 
 .star{background:none;border:0;padding:6px;color:var(--faint);border-radius:8px;flex:none}
 .star:hover{color:var(--fg)}
 .star[aria-pressed="true"]{color:var(--gold)}
 .star svg{width:18px;height:18px;display:block}
-.btn-sub{background:#eef2f0;color:#0b0e0d;border:0;padding:11px 16px;border-radius:10px;font-weight:500;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-size:14px;transition:background .15s,box-shadow .2s}
-.btn-sub:hover{background:#fff;box-shadow:0 0 26px -4px hsla(var(--h),var(--s),var(--l),.7)}
+.btn-sub{background:#eef2f0;color:#0b0e0d;border:0;padding:11px 16px;border-radius:10px;font-weight:500;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-size:14px;transition:background .15s}
+.btn-sub:hover{background:#fff}
 .btn-sub[aria-pressed="true"]{background:hsl(var(--h),var(--s),var(--l));color:#06110c}
 .btn-sub svg,.btn-ghost svg{width:14px;height:14px}
 .btn-ghost{background:transparent;border:1px solid var(--line-2);color:var(--fg);padding:10px 16px;border-radius:10px;font-weight:500;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-size:14px;transition:background .15s,border-color .15s}
@@ -134,8 +139,8 @@ canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 .ring{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;color:var(--gold);background:rgba(245,199,91,.12);box-shadow:0 0 14px -2px rgba(245,199,91,.5);flex:none}
 .ring svg{width:12px;height:12px}
 .lock b{font-family:var(--font-display);font-weight:600;font-size:13px}
-.btn-unlock{width:100%;background:linear-gradient(180deg,#f7cf6e,#e9b445);color:#1c1405;border:0;padding:11px 16px;border-radius:10px;font-weight:600;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-size:14px;transition:box-shadow .2s,filter .15s}
-.btn-unlock:hover{filter:brightness(1.06);box-shadow:0 0 28px -4px rgba(245,199,91,.7)}
+.btn-unlock{width:100%;background:linear-gradient(180deg,#f7cf6e,#e9b445);color:#1c1405;border:0;padding:11px 16px;border-radius:10px;font-weight:600;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-size:14px;transition:filter .15s}
+.btn-unlock:hover{filter:brightness(1.06)}
 .btn-unlock svg{width:14px;height:14px}
 
 /* builder promo */
@@ -149,8 +154,8 @@ canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 .feats li{display:flex;align-items:center;gap:8px;font-weight:500;font-size:14px}
 .feats svg{width:17px;height:17px;color:var(--win);flex:none}
 .promo .cta{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:4px}
-.btn-create{background:#fff;color:#0b0e0d;border:0;padding:13px 20px;border-radius:11px;font-weight:600;display:inline-flex;align-items:center;gap:10px;font-size:15px;transition:box-shadow .2s}
-.btn-create:hover{box-shadow:0 0 30px -4px rgba(20,199,132,.6)}
+.btn-create{background:#fff;color:#0b0e0d;border:0;padding:13px 20px;border-radius:11px;font-weight:600;display:inline-flex;align-items:center;gap:10px;font-size:15px;transition:background .15s}
+.btn-create:hover{background:#eef2f0}
 .btn-create svg{width:15px;height:15px}
 .plan{font-family:var(--font-mono);font-size:12px;color:var(--muted)}
 .plan b{color:var(--win);font-weight:500}
@@ -200,8 +205,8 @@ dialog[open] .m-shell{animation:pop .34s cubic-bezier(.2,.8,.2,1)}
 .m-foot{position:relative;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px;border-top:1px solid var(--line);background:rgba(10,13,14,.95)}
 .m-foot .hint{color:var(--faint);font-size:12.5px;font-family:var(--font-mono)}
 .mod-bubble{display:inline-flex;align-items:center;gap:10px;padding:6px 16px 6px 6px;border-radius:999px;border:1px solid hsla(var(--h),var(--s),var(--l),.35);color:var(--fg);font-weight:500;font-size:14px;
-  background:linear-gradient(180deg,hsla(var(--h),var(--s),var(--l),.14),hsla(var(--h),var(--s),var(--l),.04));box-shadow:0 0 28px -8px hsla(var(--h),var(--s),var(--l),.55);transition:box-shadow .25s,border-color .25s}
-.mod-bubble:hover,.mod-bubble[aria-expanded="true"]{border-color:hsla(var(--h),var(--s),var(--l),.7);box-shadow:0 0 34px -6px hsla(var(--h),var(--s),var(--l),.8)}
+  background:linear-gradient(180deg,hsla(var(--h),var(--s),var(--l),.14),hsla(var(--h),var(--s),var(--l),.04));transition:border-color .25s}
+.mod-bubble:hover,.mod-bubble[aria-expanded="true"]{border-color:hsla(var(--h),var(--s),var(--l),.7)}
 .orb{position:relative;width:28px;height:28px;border-radius:50%;flex:none;display:grid;place-items:center;background:conic-gradient(from 0deg,#8f97ff,#14C784,#f5c75b,#e061f0,#8f97ff);animation:spin 7s linear infinite}
 .orb::after{content:"✦";position:absolute;inset:3px;border-radius:50%;background:#0d1112;display:grid;place-items:center;font-size:12px;color:#fff;animation:spin 7s linear infinite reverse}
 @keyframes spin{to{transform:rotate(1turn)}}
@@ -452,9 +457,11 @@ dialog[open] .m-shell{animation:pop .34s cubic-bezier(.2,.8,.2,1)}
     <div class="row2">
       <div class="fgroup"><span class="flbl">Risk</span><div class="chips" id="chips">
         <button class="chip" type="button" data-v="" aria-pressed="true">All</button>
+        <button class="chip" type="button" data-v="Very low" aria-pressed="false">Very low</button>
         <button class="chip" type="button" data-v="Low" aria-pressed="false">Low</button>
         <button class="chip" type="button" data-v="Medium" aria-pressed="false">Medium</button>
-        <button class="chip" type="button" data-v="High" aria-pressed="false">High</button></div></div>
+        <button class="chip" type="button" data-v="High" aria-pressed="false">High</button>
+        <button class="chip" type="button" data-v="Very high" aria-pressed="false">Very high</button></div></div>
       <div class="fgroup"><span class="flbl">Timeframe</span><div class="chips" id="tfs">
         <button class="chip" type="button" data-v="" aria-pressed="true">All</button>
         <button class="chip" type="button" data-v="15m" aria-pressed="false">15m</button>
@@ -510,7 +517,7 @@ const KIND = [
 ];
 
 const STRATS = [
- {id:'hv', name:'Vol Harvester',     base:'HYPE', tf:'1h',  ret:118.4, wr:66, dd:-7.8,  subs:2310, risk:'High',   seed:33,  kind:0, desc:'Sells volatility spikes with an adaptive grid that retunes itself every hour.'},
+ {id:'hv', name:'Vol Harvester',     base:'HYPE', tf:'1h',  ret:118.4, wr:66, dd:-7.8,  subs:2310, risk:'Very high',   seed:33,  kind:0, desc:'Sells volatility spikes with an adaptive grid that retunes itself every hour.'},
  {id:'mr', name:'Midnight Reversion',base:'BTC',  tf:'4h',  ret:72.3,  wr:61, dd:-9.5,  subs:1240, risk:'Medium', seed:11,  kind:2, desc:'Fades overnight overextensions and scales in on confirmed reversals.'},
  {id:'rk', name:'Range Keeper',      base:'BTC',  tf:'1h',  ret:64.2,  wr:62, dd:-8.4,  subs:1480, risk:'Medium', seed:121, kind:2, desc:'Detects ranging regimes, trades the edges, stands aside in trends.'},
  {id:'lt', name:'Lunar Tides',       base:'ETH',  tf:'1d',  ret:54.6,  wr:63, dd:-10.4, subs:1105, risk:'Medium', seed:101, kind:1, desc:"Learns ETH's weekly rhythm and sits out everything else."},
@@ -518,7 +525,7 @@ const STRATS = [
  {id:'sr', name:'Streak Rider',      base:'XRP',  tf:'4h',  ret:33.1,  wr:54, dd:-11.3, subs:655,  risk:'Medium', seed:66,  kind:1, desc:'Follows trend persistence, sizing up as streaks extend.'},
  {id:'ss', name:'Scalp Swarm',       base:'AVAX', tf:'15m', ret:27.8,  wr:58, dd:-8.9,  subs:970,  risk:'Medium', seed:77,  kind:5, desc:'A swarm of short-horizon models voting on every micro-move.'},
  {id:'dw', name:'Deep Water DCA',    base:'BNB',  tf:'1d',  ret:9.2,   wr:69, dd:-18.7, subs:301,  risk:'Low',    seed:88,  kind:3, desc:'Accumulates on deep pullbacks on a sentiment-weighted schedule.'},
- {id:'qa', name:'Quiet Accumulator', base:'LINK', tf:'1d',  ret:8.6,   wr:72, dd:-6.2,  subs:412,  risk:'Low',    seed:44,  kind:3, desc:'Slow, steady accumulation that only buys when volatility is calm.'},
+ {id:'qa', name:'Quiet Accumulator', base:'LINK', tf:'1d',  ret:8.6,   wr:72, dd:-6.2,  subs:412,  risk:'Very low',    seed:44,  kind:3, desc:'Slow, steady accumulation that only buys when volatility is calm.'},
  {id:'bh', name:'Breakout Hunter',   base:'SOL',  tf:'4h',  ret:-14.3, wr:38, dd:-22.4, subs:188,  risk:'High',   seed:55,  kind:4, desc:'Chases range breakouts. Currently out of its favoured regime.'},
 ];
 
@@ -533,11 +540,17 @@ const NOUN = ['Grid','Sentinel','Pulse','Harvest','Current','Ladder','Compass','
   const r = rng(2026), pickOf = a => a[Math.floor(r()*a.length)], used = new Set(STRATS.map(s => s.name)), coins = Object.keys(COIN);
   for (let i=0;i<48;i++){
     let name; do name = pickOf(ADJ) + ' ' + pickOf(NOUN); while (used.has(name)); used.add(name);
-    const base = pickOf(coins), u = r(), risk = u < .3 ? 'Low' : u < .72 ? 'Medium' : 'High', kind = Math.floor(r()*KIND.length);
-    const dd  = -(risk === 'Low' ? 3 + r()*7 : risk === 'Medium' ? 7 + r()*8 : 12 + r()*16);
-    const ret = risk === 'Low' ? -2 + r()*22 : risk === 'Medium' ? -10 + r()*70 : -25 + r()*125;
+    const base = pickOf(coins), u = r(), risk = u < .12 ? 'Very low' : u < .3 ? 'Low' : u < .67 ? 'Medium' : u < .88 ? 'High' : 'Very high', kind = Math.floor(r()*KIND.length);
+    const [ddMin, ddRange, retMin, retRange, wrMin, wrRange] = {
+      'Very low':[1,3,-1,12,68,12],
+      Low:[3,7,-2,22,60,14],
+      Medium:[7,8,-10,70,42,24],
+      High:[12,16,-25,125,42,24],
+      'Very high':[20,20,-40,190,35,25],
+    }[risk];
+    const dd = -(ddMin + r()*ddRange), ret = retMin + r()*retRange;
     STRATS.push({id:'g'+i, name, base, tf:pickOf(['15m','1h','4h','1d']), ret:+ret.toFixed(1),
-      wr:Math.round(risk === 'Low' ? 60 + r()*14 : 42 + r()*24), dd:+dd.toFixed(1), subs:Math.round(40 + r()*r()*1900),
+      wr:Math.round(wrMin + r()*wrRange), dd:+dd.toFixed(1), subs:Math.round(40 + r()*r()*1900),
       risk, seed:300 + i, kind, desc:KIND[kind].d(base), gpro:i % 9 === 4});
   }
 }
@@ -707,7 +720,7 @@ const lockedHTML = (s,i) => `<article class="card locked" data-id="${s.id}" styl
   <p class="desc blur" aria-hidden="true">This model's logic and live results are available to Pro members only.</p>
   <div class="chart" data-open="${s.id}"><canvas aria-hidden="true"></canvas>
     <div class="lock"><span class="ring">${ICON.lock}</span><b>Pro strategy</b></div></div>
-  <div class="foot"><div class="ret"><span class="lbl">Total return</span><strong>${fmt(s.ret)}</strong><small>30d <b class="${cls(s.r30)}">${fmt(s.r30)}</b> · model hidden</small></div><span class="risk">${s.risk}</span></div>
+  <div class="foot"><div class="ret"><span class="lbl">Total return</span><strong>${fmt(s.ret)}</strong><small>30d <b class="${cls(s.r30)}">${fmt(s.r30)}</b> · model hidden</small></div><span class="risk" data-risk="${s.risk}">${s.risk}</span></div>
   <div class="stats">${statsRow(s)}</div>
   <div class="act"><button class="btn-unlock" type="button">${ICON.lock} Unlock with Pro</button>${detailsBtn(s)}</div>
 </article>`;
@@ -716,7 +729,7 @@ const cardHTML = (s,i) => s.pro ? lockedHTML(s,i) : `<article class="card" data-
   <div class="head"><span class="coin" aria-hidden="true">${s.base}</span><div class="id"><h3>${s.name}</h3><span class="pair">${s.base}/USDT · ${s.T.length} trades</span></div>${starBtn(s, s.name)}</div>
   <p class="desc">${s.desc}</p>
   <div class="chart" data-open="${s.id}"><canvas role="img" aria-label="Equity curve for ${s.name}"></canvas></div>
-  <div class="foot"><div class="ret"><span class="lbl">Total return</span><strong>${fmt(s.ret)}</strong><small>30d <b class="${cls(s.r30)}">${fmt(s.r30)}</b></small></div><span class="risk">${s.risk}</span></div>
+  <div class="foot"><div class="ret"><span class="lbl">Total return</span><strong>${fmt(s.ret)}</strong><small>30d <b class="${cls(s.r30)}">${fmt(s.r30)}</b></small></div><span class="risk" data-risk="${s.risk}">${s.risk}</span></div>
   <div class="stats">${statsRow(s)}</div>
   <div class="act">${subBtn(s)}${detailsBtn(s)}</div>
 </article>`;
@@ -983,7 +996,7 @@ function paintHead(){
   headEl.innerHTML = `<span class="coin" aria-hidden="true">${s.base}</span>
     <div class="id"><h3 id="m-title">${L ? s.base + '/USDT' : s.name}</h3><span class="pair">${L ? 'Pro strategy' : s.base + '/USDT'} · ${s.tf} · ${s.T.length} trades</span></div>
     <span class="m-ret">${fmt(s.ret)}</span>
-    <div class="tags"><span class="risk">${s.risk} risk</span></div>
+    <div class="tags"><span class="risk" data-risk="${s.risk}">${s.risk} risk</span></div>
     <div class="m-acts">
       <button class="icon-btn" type="button" data-sid="${s.id}" data-kind="fav" aria-pressed="${FOLLOW.has(s.id)}" aria-label="Add to favourites" title="Add to favourites">${ICON.star.replace('fill="none"', `fill="${FOLLOW.has(s.id) ? 'currentColor' : 'none'}"`)}</button>
       ${L ? `<button class="btn-unlock" type="button">${ICON.lock} Unlock</button>` : subBtn(s)}
