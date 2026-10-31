@@ -156,6 +156,8 @@ canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 
 /* locked Pro cards */
 .badge{font-size:12px;font-weight:500;letter-spacing:-.03em;padding:2px 8px;border-radius:8px;color:var(--gold);background:rgba(245,199,91,.08);border:0.5px solid rgba(245,199,91,.35);white-space:nowrap;flex:none}
+.tag{font-size:12px;font-weight:500;letter-spacing:-.03em;padding:2px 8px;border-radius:8px;color:var(--fg);background:var(--surface-2);border:0.5px solid var(--line);white-space:nowrap;flex:none}
+.foot .tags{display:flex;gap:6px;align-items:center}
 .card.locked{--h:42;--s:85%;--l:62%;--g:.45}
 .blur{filter:blur(6px);user-select:none;pointer-events:none}
 .card.locked .chart canvas{filter:blur(4px)}
@@ -504,7 +506,7 @@ const STRATS = [
  {id:'mr', name:'Tidal Engine',      base:'SOL',  tf:'4h',  ret:137.6,  wr:61, dd:-9.5,  subs:1240, risk:'Low', seed:11,  kind:2, desc:'Fades SOL overextensions and scales in on confirmed reversals.'},
  {id:'rk', name:'Atlas Swarm',       base:'SUI',  tf:'1h',  ret:96.5,  wr:62, dd:-8.4,  subs:1480, risk:'Low', seed:121, kind:2, desc:'Combines range models to trade SUI at the edges and stand aside in trends.'},
  {id:'lt', name:'Helix Current',     base:'LINK', tf:'1d',  ret:84.0,  wr:63, dd:-10.4, subs:1105, risk:'Low', seed:101, kind:1, desc:"Learns LINK's weekly rhythm and sits out everything else."},
- {id:'om', name:'Orbit Momentum',    base:'ETH',  tf:'4h',  ret:184.6,  wr:57, dd:-12.1, subs:860,  risk:'Low', seed:22,  kind:1, desc:'Rides RSI breakouts and cuts losers within two bars.'},
+ {id:'om', name:'Orbit Momentum',    base:'ETH',  tf:'4h',  ret:184.6,  wr:57, dd:-12.1, subs:860,  risk:'Low', seed:22,  kind:1, custom:true, desc:'Rides RSI breakouts and cuts losers within two bars.'},
  {id:'sr', name:'Streak Rider',      base:'XRP',  tf:'4h',  ret:33.1,  wr:54, dd:-11.3, subs:655,  risk:'Medium', seed:66,  kind:1, desc:'Follows trend persistence, sizing up as streaks extend.'},
  {id:'ss', name:'Scalp Swarm',       base:'AVAX', tf:'15m', ret:27.8,  wr:58, dd:-8.9,  subs:970,  risk:'Medium', seed:77,  kind:5, desc:'A swarm of short-horizon models voting on every micro-move.'},
  {id:'dw', name:'Deep Water DCA',    base:'BNB',  tf:'1d',  ret:9.2,   wr:69, dd:-18.7, subs:301,  risk:'Low',    seed:88,  kind:3, desc:'Accumulates on deep pullbacks on a sentiment-weighted schedule.'},
@@ -688,7 +690,7 @@ const lockedHTML = (s,i) => `<article class="card locked" data-id="${s.id}" styl
   <p class="desc">This model's logic and live results are available to Pro members only.</p>
   <div class="chart" data-open="${s.id}"><canvas aria-hidden="true"></canvas>
     <div class="lock"><span class="ring">${ICON.lock}</span><b>Pro strategy</b></div></div>
-  <div class="foot"><div class="ret"><span class="lbl">Total return</span><strong>${fmt(s.ret)}</strong><small>30d <b class="${cls(s.r30)}">${fmt(s.r30)}</b> · model hidden</small></div><span class="risk" data-risk="${s.risk}">${s.risk}</span></div>
+  <div class="foot"><div class="ret"><span class="lbl">Total return</span><strong>${fmt(s.ret)}</strong><small>30d <b class="${cls(s.r30)}">${fmt(s.r30)}</b> · model hidden</small></div><div class="tags">${s.custom ? '<span class="tag">Custom</span>' : ''}<span class="risk" data-risk="${s.risk}">${s.risk}</span></div></div>
   <div class="stats">${statsRow(s)}</div>
   <div class="act"><button class="btn-unlock" type="button">${ICON.lock} Unlock with Pro</button>${detailsBtn(s)}</div>
 </article>`;
@@ -697,7 +699,7 @@ const cardHTML = (s,i) => s.pro ? lockedHTML(s,i) : `<article class="card" data-
   <div class="head"><span class="coin" aria-hidden="true">${s.base}</span><div class="id"><h3>${s.name}</h3><span class="pair">${s.base}/USDT · ${s.T.length} trades</span></div>${starBtn(s, s.name)}</div>
   <p class="desc">${s.desc}</p>
   <div class="chart" data-open="${s.id}"><canvas role="img" aria-label="Equity curve for ${s.name}"></canvas></div>
-  <div class="foot"><div class="ret"><span class="lbl">Total return</span><strong>${fmt(s.ret)}</strong><small>30d <b class="${cls(s.r30)}">${fmt(s.r30)}</b></small></div><span class="risk" data-risk="${s.risk}">${s.risk}</span></div>
+  <div class="foot"><div class="ret"><span class="lbl">Total return</span><strong>${fmt(s.ret)}</strong><small>30d <b class="${cls(s.r30)}">${fmt(s.r30)}</b></small></div><div class="tags">${s.custom ? '<span class="tag">Custom</span>' : ''}<span class="risk" data-risk="${s.risk}">${s.risk}</span></div></div>
   <div class="stats">${statsRow(s)}</div>
   <div class="act">${subBtn(s)}${detailsBtn(s)}</div>
 </article>`;
