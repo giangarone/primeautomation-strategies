@@ -4,10 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>AI Strategies</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Geist:wght@400..600&family=Geist+Mono:wght@400;500;600&display=swap">
+<link rel="preload" href="fonts/AvenirNext/AvenirNext-Regular.ttf" as="font" type="font/ttf" crossorigin>
 <style>
+/* Avenir Next font files from https://www.primeautomation.ai/. */
+@font-face{font-family:"Avenir Next";src:url("fonts/AvenirNext/AvenirNext-Regular.ttf") format("truetype");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Avenir Next";src:url("fonts/AvenirNext/AvenirNext-Medium.ttf") format("truetype");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"Avenir Next";src:url("fonts/AvenirNext/AvenirNext-DemiBold.ttf") format("truetype");font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:"Avenir Next";src:url("fonts/AvenirNext/AvenirNext-Bold.ttf") format("truetype");font-weight:700;font-style:normal;font-display:swap}
 /* Strategy equity curves use colors to indicate performance. */
 :root{
   color-scheme:dark;
@@ -15,9 +18,9 @@
   --line:#333333; --line-2:#333333; --line-width:0.5px;
   --fg:#e7eeea; --muted:#8b9792; --faint:rgba(255,255,255,.5);
   --win:#14C784; --loss:#f2715d; --bt:#8f97ff; --gold:#f5c75b;
-  --font-display:"Bricolage Grotesque","Avenir Next",system-ui,sans-serif;
-  --font-body:"Geist",system-ui,-apple-system,"Segoe UI",sans-serif;
-  --font-mono:"Geist Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --font-display:var(--font-body);
+  --font-body:"Avenir Next",Arial,Helvetica,sans-serif;
+  --font-mono:var(--font-body);
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
@@ -34,7 +37,7 @@ button{cursor:pointer}
 /* header */
 .kicker{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--win);display:inline-flex;gap:8px;align-items:center}
 .kicker i{font-style:normal;text-shadow:0 0 12px rgba(20,199,132,.9)}
-.top h1{font-family:var(--font-display);font-weight:600;font-size:clamp(34px,5vw,60px);line-height:1.02;letter-spacing:-.03em;margin:14px 0 0;max-width:16ch;text-wrap:balance;font-variation-settings:"opsz" 96}
+.top h1{font-family:var(--font-display);font-weight:600;font-size:clamp(34px,5vw,60px);line-height:1.02;letter-spacing:-.03em;margin:14px 0 0;max-width:16ch;text-wrap:balance}
 .top p{margin:14px 0 0;color:var(--muted);font-size:16px;max-width:52ch}
 
 /* controls */
@@ -67,16 +70,16 @@ button{cursor:pointer}
 /* shared bits */
 .coin{width:36px;height:36px;border-radius:50%;flex:none;display:grid;place-items:center;font-family:var(--font-mono);font-weight:600;font-size:10.5px;color:hsl(var(--ch),70%,82%);background:radial-gradient(circle at 30% 25%,hsl(var(--ch),60%,34%),hsl(var(--ch),55%,16%));border:1px solid hsla(var(--ch),70%,60%,.35)}
 .id{min-width:0;flex:1}
-.id h3{margin:0;font-family:var(--font-display);font-weight:600;font-size:19px;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-variation-settings:"opsz" 30}
+.id h3{margin:0;font-family:var(--font-display);font-weight:600;font-size:19px;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .id .pair{display:block;color:var(--muted);font-family:var(--font-body);font-size:12px}
-.ret strong{display:block;font-family:var(--font-display);font-weight:700;font-size:36px;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums;color:var(--return-color,hsl(var(--h),var(--s),calc(var(--l) + 6%)));font-variation-settings:"opsz" 96}
+.ret strong{display:block;font-family:var(--font-display);font-weight:600;font-size:32px;line-height:1;letter-spacing:-.06em;font-variant-numeric:tabular-nums;color:var(--return-color,hsl(var(--h),var(--s),calc(var(--l) + 6%)))}
 .ret small{display:block;margin-top:6px;font-family:var(--font-mono);font-size:12px;color:var(--muted)}
-.lbl,.k{display:block;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.lbl,.k{display:block;font-size:10.5px;letter-spacing:-.01em;text-transform:uppercase;color:var(--muted);font-weight:500}
 .k em{font-style:normal;color:var(--faint);margin-left:6px}
 .v{font-family:var(--font-body);font-size:14.5px;font-variant-numeric:proportional-nums}
 .pos{color:var(--win)} .neg{color:var(--loss)}
 canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
-.risk{font-size:12px;letter-spacing:-.03em;padding:2px 8px;border-radius:8px;border:0.5px solid color-mix(in srgb,currentColor 50%,transparent);color:var(--muted);background:color-mix(in srgb,currentColor 12%,transparent);white-space:nowrap}
+.risk{font-size:12px;font-weight:500;letter-spacing:-.03em;padding:2px 8px;border-radius:8px;border:0.5px solid color-mix(in srgb,currentColor 50%,transparent);color:var(--muted);background:color-mix(in srgb,currentColor 12%,transparent);white-space:nowrap}
 .risk[data-risk="Very low"]{color:#6587FF}
 .risk[data-risk="Low"]{color:#14C784}
 .risk[data-risk="Medium"]{color:#D3BE08}
@@ -117,7 +120,7 @@ canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 .sect-k{display:inline-flex;align-items:center;gap:7px;font-family:var(--font-mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--win);margin-bottom:8px}
 .sect-k i{font-style:normal}
 .sect-pro .sect-k{color:var(--gold)}
-.sect-h h2{margin:0;font-family:var(--font-display);font-weight:600;font-size:clamp(22px,2.6vw,28px);letter-spacing:-.02em;font-variation-settings:"opsz" 60}
+.sect-h h2{margin:0;font-family:var(--font-display);font-weight:600;font-size:clamp(22px,2.6vw,28px);letter-spacing:-.02em}
 .sect-h p{margin:5px 0 0;color:var(--muted);font-size:14.5px;max-width:60ch}
 .sect-h .count{font-family:var(--font-mono);font-size:12px;color:var(--faint);white-space:nowrap}
 
@@ -755,6 +758,7 @@ function mount(cv, fn, bag){
   const redraw = () => { if (!st.w) return; ctx.setTransform(DPR,0,0,DPR,0,0); ctx.clearRect(0,0,st.w,st.h); fn(ctx, st.w, st.h); };
   const o = new ResizeObserver(([e]) => { st.w = e.contentRect.width; st.h = e.contentRect.height; cv.width = Math.round(st.w*DPR); cv.height = Math.round(st.h*DPR); redraw(); });
   o.observe(cv); bag.push(() => o.disconnect());
+  document.fonts.ready.then(redraw);
   return redraw;
 }
 const dispose = bag => { bag.splice(0).forEach(f => f()); };
@@ -802,7 +806,7 @@ function eqChart(s, o){
     const sp = (mx - mn) || 1; mn -= sp*.08; mx += sp*.1;
     const X = i => padL + (w - padL - padR)*(i - from)/Math.max(1, n - 1), Y = v => padT + (h - padT - padB)*(1 - (v - mn)/(mx - mn));
     o.map = {X, padL, padR, w, from, n};
-    c.font = '11px "Geist Mono", ui-monospace, monospace'; c.textBaseline = 'middle'; c.lineWidth = 1;
+    c.font = '11px "Avenir Next", Arial, sans-serif'; c.textBaseline = 'middle'; c.lineWidth = 1;
     niceTicks(mn, mx, 5).forEach(v => { const y = Y(v); c.strokeStyle = INK(v === 0 ? .14 : .05); line(c, padL, y, w - padR, y); c.fillStyle = '#6f7b77'; c.textAlign = 'right'; c.fillText((v > 0 ? '+' : '') + v + '%', padL - 8, y); });
     c.textAlign = 'center'; for (let k=0;k<6;k++){ const i = Math.round(from + (n-1)*k/5); c.fillStyle = '#6f7b77'; c.fillText(fmtD(s, i), Math.min(w - padR - 20, Math.max(padL + 20, X(i))), h - padB/2 + 4); }
     const path = (a, b) => { c.beginPath(); for (let i=a;i<=b;i++) i === a ? c.moveTo(X(i), Y(E[i])) : c.lineTo(X(i), Y(E[i])); };
@@ -827,7 +831,7 @@ function eqChart(s, o){
       const i = o.hover, x = X(i), y = Y(E[i]);
       c.strokeStyle = INK(.3); c.setLineDash([3,3]); line(c, x, padT, x, h - padB); c.setLineDash([]);
       c.beginPath(); c.arc(x, y, 4, 0, TAU); c.fillStyle = '#fff'; c.fill();
-      const txt = `${fmtD(s, i, true)}   ${fmt(E[i], 2)}`; c.font = '12px "Geist Mono", ui-monospace, monospace';
+      const txt = `${fmtD(s, i, true)}   ${fmt(E[i], 2)}`; c.font = '12px "Avenir Next", Arial, sans-serif';
       const tw = c.measureText(txt).width + 18, bx = Math.min(w - padR - tw, Math.max(padL, x - tw/2)), by = Math.max(padT, y - 38);
       c.fillStyle = 'rgba(18,23,24,.95)'; c.strokeStyle = INK(.15); c.beginPath(); c.roundRect(bx, by, tw, 26, 7); c.fill(); c.stroke();
       c.fillStyle = '#e7eeea'; c.textAlign = 'left'; c.fillText(txt, bx + 9, by + 13);
@@ -852,7 +856,7 @@ function candleChart(s, st){
     const sp = mx - mn; mn -= sp*.14; mx += sp*.14;
     const cw = (w - padR)/span, X = i => (i - start + .5)*cw, Y = v => padT + (h - padT - padB)*(1 - (v - mn)/(mx - mn));
     st.view = {start, end, cw};
-    c.font = '11px "Geist Mono", ui-monospace, monospace'; c.textBaseline = 'middle'; c.lineWidth = 1;
+    c.font = '11px "Avenir Next", Arial, sans-serif'; c.textBaseline = 'middle'; c.lineWidth = 1;
     niceTicks(mn, mx, 6).forEach(v => { const y = Y(v); c.strokeStyle = INK(.045); line(c, 0, y, w - padR, y); c.fillStyle = '#7d8985'; c.textAlign = 'left'; c.fillText(fmtPx(v), w - padR + 10, y); });
     const step = Math.ceil(span/Math.max(2, Math.floor((w - padR)/120))); c.textAlign = 'center';
     for (let i = start + Math.floor(step/2); i < end; i += step){ const x = X(i); c.strokeStyle = INK(.035); line(c, x, padT, x, h - padB); c.fillStyle = '#7d8985'; c.fillText(fmtD(s, i, true), x, h - padB/2 + 2); }
@@ -870,7 +874,7 @@ function candleChart(s, st){
     }
     // markers
     const tri = (x, y, dir, col) => { c.fillStyle = col; c.beginPath(); c.moveTo(x, y - 5*dir); c.lineTo(x - 5, y + 4*dir); c.lineTo(x + 5, y + 4*dir); c.closePath(); c.fill(); };
-    const txt = (s0, x, y, col, bold) => { c.font = `${bold ? 600 : 500} 11px "Geist", system-ui, sans-serif`; c.fillStyle = col; c.textAlign = 'center'; c.fillText(s0, x, y); };
+    const txt = (s0, x, y, col, bold) => { c.font = `${bold ? 600 : 500} 11px "Avenir Next", Arial, sans-serif`; c.fillStyle = col; c.textAlign = 'center'; c.fillText(s0, x, y); };
     T.forEach((tr, k) => {
       if (tr.xi < start || tr.ei >= end) return;
       const on = k === st.sel; c.globalAlpha = on ? 1 : .7;
@@ -887,7 +891,7 @@ function candleChart(s, st){
       const lp = B[B.length - 1], y = Y(lp.c), col = lp.c >= lp.o ? '#14C784' : '#ef4f58';
       c.setLineDash([2,3]); c.strokeStyle = col; line(c, 0, y, w - padR, y); c.setLineDash([]);
       c.fillStyle = col; c.beginPath(); c.roundRect(w - padR + 4, y - 10, padR - 8, 20, 4); c.fill();
-      c.fillStyle = '#fff'; c.font = '600 11px "Geist Mono", ui-monospace, monospace'; c.textAlign = 'left'; c.fillText(fmtPx(lp.c), w - padR + 10, y);
+      c.fillStyle = '#fff'; c.font = '600 11px "Avenir Next", Arial, sans-serif'; c.textAlign = 'left'; c.fillText(fmtPx(lp.c), w - padR + 10, y);
     }
     if (st.hover != null && st.hover >= start && st.hover < end){ const x = X(st.hover); c.strokeStyle = INK(.25); c.setLineDash([3,3]); line(c, x, padT, x, h - padB); c.setLineDash([]); }
   };
@@ -899,13 +903,13 @@ function histChart(s, S){
     const P = s.T.map(t => t.pnl), lo = Math.floor(Math.min(...P)), hi = Math.ceil(Math.max(...P)), bin = (hi - lo) > 26 ? 2 : (hi - lo) > 12 ? 1 : .5;
     const nb = Math.ceil((hi - lo)/bin) || 1, cnt = new Array(nb).fill(0); P.forEach(v => cnt[Math.min(nb - 1, Math.floor((v - lo)/bin))]++);
     const padT = 26, padB = 24, mx = Math.max(...cnt), bw = w/nb, X = v => (v - lo)/(hi - lo)*w, Y = v => padT + (h - padT - padB)*(1 - v/mx);
-    c.font = '11px "Geist Mono", ui-monospace, monospace'; c.textBaseline = 'middle'; c.textAlign = 'center';
+    c.font = '11px "Avenir Next", Arial, sans-serif'; c.textBaseline = 'middle'; c.textAlign = 'center';
     cnt.forEach((n0, i) => { const v0 = lo + i*bin; c.fillStyle = v0 + bin <= 0 ? 'rgba(239,79,88,.85)' : 'rgba(34,179,131,.85)'; c.fillRect(i*bw + 1, Y(n0), Math.max(1, bw - 2), h - padB - Y(n0) + (n0 ? 0 : -1) ); });
     c.strokeStyle = INK(.12); line(c, 0, h - padB, w, h - padB);
     const tickStep = niceTicks(lo, hi, 7); tickStep.forEach(v => { c.fillStyle = '#6f7b77'; c.fillText((v > 0 ? '+' : '') + v + '%', Math.min(w - 16, Math.max(16, X(v))), h - padB/2 + 4); });
     [[S.avgL, 'Avg loss ' + fmt(S.avgL), '#ef4f58'], [S.avgW, 'Avg win ' + fmt(S.avgW), '#14C784']].forEach(([v, lab, col]) => {
       const x = X(v); c.setLineDash([3,3]); c.strokeStyle = col; line(c, x, padT - 6, x, h - padB); c.setLineDash([]);
-      c.fillStyle = '#b6c2bd'; c.font = '11.5px "Geist", system-ui, sans-serif'; c.fillText(lab, Math.min(w - 50, Math.max(50, x)), 8); c.font = '11px "Geist Mono", ui-monospace, monospace'; });
+      c.fillStyle = '#b6c2bd'; c.font = '11.5px "Avenir Next", Arial, sans-serif'; c.fillText(lab, Math.min(w - 50, Math.max(50, x)), 8); c.font = '11px "Avenir Next", Arial, sans-serif'; });
   };
 }
 
