@@ -16,7 +16,7 @@
   color-scheme:dark;
   --bg:#080808; --surface:#0C0C0C; --surface-2:#121212; --surface-3:rgba(255,255,255,.1);
   --line:#333333; --line-2:#333333; --line-width:0.5px;
-  --fg:#e7eeea; --muted:#8b9792; --faint:rgba(255,255,255,.5);
+  --fg:#e7eeea; --muted:#919191; --faint:rgba(255,255,255,.5);
   --button-primary-bg:#fff;
   --win:#14C784; --loss:#f2715d; --bt:#6587FF; --gold:#f5c75b;
   --font-display:var(--font-body);
@@ -44,7 +44,7 @@ button{cursor:pointer}
 .builder-promo{letter-spacing:-.01em;position:relative;isolation:isolate;display:grid;grid-template-columns:minmax(0,1.6fr) minmax(280px,1fr);align-items:center;gap:40px;padding:32px;border:var(--line-width) solid color-mix(in srgb,var(--win) 25%,var(--line));border-radius:24px;overflow:hidden;background:linear-gradient(100deg,var(--bg),color-mix(in srgb,var(--win) 26%,var(--surface)));box-shadow:inset 0 1px 0 color-mix(in srgb,var(--win) 15%,transparent)}
 .builder-promo::after{content:"";position:absolute;top:0;left:8%;right:8%;height:1px;pointer-events:none;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--win) 75%,var(--fg)),transparent);opacity:.25}
 .builder-copy{min-width:0}
-.builder-kicker{display:block;margin-bottom:14px;color:var(--muted);font-family:var(--font-body);font-size:11px;font-weight:500;line-height:1.5;letter-spacing:.02em;text-transform:uppercase}
+.builder-kicker{display:block;margin-bottom:14px;color:var(--win);font-family:var(--font-body);font-size:11px;font-weight:600;line-height:1.5;letter-spacing:.02em;text-transform:uppercase}
 .builder-copy h2{margin:0;font-family:var(--font-display);font-size:clamp(26px,2.7vw,34px);font-weight:600;line-height:1.15;letter-spacing:-.035em;text-wrap:balance}
 .builder-copy h2 span{color:var(--win)}
 .builder-copy>p{max-width:60ch;margin:14px 0 0;color:color-mix(in srgb,var(--muted) 70%,var(--fg));font-size:14.5px;line-height:1.6}
@@ -152,7 +152,7 @@ canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 .sect-k{display:inline-flex;align-items:center;gap:7px;font-family:var(--font-mono);font-size:11px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:var(--win);margin-bottom:8px}
 .sect-k i{font-style:normal}
 .sect-pro .sect-k{color:var(--gold)}
-.sect-h h2{margin:0;font-family:var(--font-display);font-weight:600;font-size:clamp(22px,2.6vw,28px);letter-spacing:-.02em}
+.sect-h h2{margin:0;font-family:var(--font-display);font-weight:600;font-size:clamp(22px,2.6vw,28px);letter-spacing:-.02em;text-transform:capitalize}
 .sect-h p{margin:5px 0 0;color:var(--muted);font-size:14.5px;max-width:60ch}
 .sect-h .count{font-family:var(--font-mono);font-size:12px;color:var(--faint);white-space:nowrap}
 
@@ -417,14 +417,14 @@ dialog[open] .m-shell{animation:pop .34s cubic-bezier(.2,.8,.2,1)}
 
   <section class="builder-promo" aria-labelledby="builder-title">
     <div class="builder-copy">
-      <span class="builder-kicker">Build. Automate. Trade.</span>
+      <span class="builder-kicker">Build ∙ Automate ∙ Trade</span>
       <h2 id="builder-title">Create Your Own <span>AI Strategy</span></h2>
       <p>Describe your idea in plain words or drag it together. Backtest it instantly and deploy it to your exchange. No coding required.</p>
       <ul class="builder-features">
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M4 6h7m6 0h3M4 12h2m6 0h8M4 18h10m6 0h0"/><circle cx="14" cy="6" r="3"/><circle cx="9" cy="12" r="3"/><circle cx="17" cy="18" r="3"/></svg>Visual builder</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Backtest instantly</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 19a5 5 0 0 1-1-9.9 6 6 0 0 1 11.7-1.3A5.6 5.6 0 0 1 18 19Z"/></svg>Deploy to exchange</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="7" r="4"/><path d="M2 21v-2a7 7 0 0 1 14 0v2M17 3a4 4 0 0 1 0 8m2 4a6 6 0 0 1 3 5v1"/></svg>Share &amp; earn</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M4 6h7m6 0h3M4 12h2m6 0h8M4 18h10m6 0h0"/><circle cx="14" cy="6" r="3"/><circle cx="9" cy="12" r="3"/><circle cx="17" cy="18" r="3"/></svg>Visual Builder</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Backtest Instantly</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 19a5 5 0 0 1-1-9.9 6 6 0 0 1 11.7-1.3A5.6 5.6 0 0 1 18 19Z"/></svg>Deploy to Exchange</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="7" r="4"/><path d="M2 21v-2a7 7 0 0 1 14 0v2M17 3a4 4 0 0 1 0 8m2 4a6 6 0 0 1 3 5v1"/></svg>Share &amp; Earn</li>
       </ul>
       <div class="builder-actions">
         <!-- Visual-only CTA; connect to the builder when its destination is ready. -->
@@ -526,7 +526,7 @@ const KIND = [
 
 const STRATS = [
  {id:'hv', name:'Vol Harvester',     base:'HYPE', tf:'1h',  ret:118.4, wr:66, dd:-7.8,  subs:2310, risk:'Very high',   seed:33,  kind:0, desc:'Sells volatility spikes with an adaptive grid that retunes itself every hour.'},
- {id:'mr', name:'Tidal Engine',      base:'SOL',  tf:'4h',  ret:107.0,  wr:61, dd:-9.5,  subs:1240, risk:'Low', seed:11,  kind:2, desc:'Fades SOL overextensions and scales in on confirmed reversals.'},
+ {id:'mr', name:'Tidal Engine',      base:'SOL',  tf:'4h',  ret:137.6,  wr:61, dd:-9.5,  subs:1240, risk:'Low', seed:11,  kind:2, desc:'Fades SOL overextensions and scales in on confirmed reversals.'},
  {id:'rk', name:'Atlas Swarm',       base:'SUI',  tf:'1h',  ret:96.5,  wr:62, dd:-8.4,  subs:1480, risk:'Low', seed:121, kind:2, desc:'Combines range models to trade SUI at the edges and stand aside in trends.'},
  {id:'lt', name:'Helix Current',     base:'LINK', tf:'1d',  ret:84.0,  wr:63, dd:-10.4, subs:1105, risk:'Low', seed:101, kind:1, desc:"Learns LINK's weekly rhythm and sits out everything else."},
  {id:'om', name:'Orbit Momentum',    base:'ETH',  tf:'4h',  ret:42.3,  wr:57, dd:-12.1, subs:860,  risk:'Medium', seed:22,  kind:1, desc:'Rides RSI breakouts and cuts losers within two bars.'},
