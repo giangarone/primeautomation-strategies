@@ -157,7 +157,7 @@ canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
 #sentinel{min-height:1px;text-align:center;color:var(--faint);font-family:var(--font-mono);font-size:12px;letter-spacing:.04em}
 #sentinel:not(:empty){padding:12px 0}
 
-/* locked Pro cards */
+/* locked Builder cards */
 .badge{font-size:12px;font-weight:500;letter-spacing:-.03em;padding:2px 8px;border-radius:8px;color:var(--gold);background:rgba(245,199,91,.08);border:0.5px solid rgba(245,199,91,.35);white-space:nowrap;flex:none}
 .tag{font-size:12px;font-weight:500;letter-spacing:-.03em;padding:2px 8px;border-radius:8px;color:var(--fg);background:var(--surface-2);border:0.5px solid var(--line);white-space:nowrap;flex:none}
 .foot .tags{display:flex;gap:6px;align-items:center}
@@ -390,6 +390,7 @@ dialog[open] .m-shell{animation:pop .34s cubic-bezier(.2,.8,.2,1)}
   .grid{grid-template-columns:minmax(0,1fr)}
   .row1 .sel{flex:1 1 140px;min-width:0}
   .fgroup{width:100%}
+  .fgroup--assets{flex-direction:column;align-items:flex-start;gap:8px}
   .fgroup .chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
   .chip{flex:none}
   .clear{margin-left:0}
@@ -434,6 +435,13 @@ dialog[open] .m-shell{animation:pop .34s cubic-bezier(.2,.8,.2,1)}
   </section>
 
   <div class="tools" role="search">
+    <div class="row2">
+      <div class="fgroup fgroup--assets" role="group" aria-labelledby="asset-category-label"><span class="flbl" id="asset-category-label">Asset category</span><div class="chips" id="asset-categories">
+        <button class="chip" type="button" data-v="" aria-pressed="true">All</button>
+        <button class="chip" type="button" data-v="crypto" aria-pressed="false">Crypto</button>
+        <button class="chip" type="button" data-v="stocks" aria-pressed="false">Stocks</button>
+        <button class="chip" type="button" data-v="forex" aria-pressed="false">Forex</button></div></div>
+    </div>
     <div class="row1">
       <label class="search" id="qwrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
         <input id="q" type="search" placeholder="Search a ticker or strategy, e.g. BTC" autocomplete="off" spellcheck="false" aria-label="Search strategies">
@@ -594,8 +602,9 @@ function tone(ret){
   const k = Math.min(1, Math.pow(ret/115, .75));
   return {h:157.5418994413408, s:81.73515981735159, l:42.94117647058824, g:.08+.92*k};
 }
-const PRO = new Set(['mr','rk','lt']);   // locked behind Pro (plus a few in the feed)
+const PRO = new Set(['mr','rk','lt']);   // locked behind Builder (plus a few in the feed)
 STRATS.forEach(s => {
+  s.assetCategory ??= 'crypto';
   s.pro = PRO.has(s.id) || !!s.gpro;
   build(s);
   s.T0 = tone(s.ret); s.T = s.T;  // keep trades on s.T
@@ -692,13 +701,13 @@ const detailsBtn = s => `<button class="btn-ghost" type="button" data-open="${s.
 
 const lockedHTML = (s,i) => `<article class="card locked" data-id="${s.id}" style="${vars(s)};--i:${i}">
   <div class="head"><span class="coin" aria-hidden="true">${s.base}</span><div class="id"><h3>${s.name}</h3><span class="pair">${s.base}/USDT · ${s.T.length} trades</span></div>
-    <span class="badge">${s.ret >= 50 ? 'Top performer' : 'Pro'}</span>${starBtn(s, s.name)}</div>
-  <p class="desc">This model's logic and live results are available to Pro members only.</p>
+    <span class="badge">${s.ret >= 50 ? 'Top performer' : 'Builder'}</span>${starBtn(s, s.name)}</div>
+  <p class="desc">This model's logic and live results are available to Builder members only.</p>
   <div class="chart" data-open="${s.id}"><canvas aria-hidden="true"></canvas>
-    <div class="lock"><span class="ring">${ICON.lock}</span><b>Pro strategy</b></div></div>
+    <div class="lock"><span class="ring">${ICON.lock}</span><b>Builder strategy</b></div></div>
   <div class="foot"><div class="ret"><span class="lbl">Total return</span><strong>${fmt(s.ret)}</strong><small>30d <b class="${cls(s.r30)}">${fmt(s.r30)}</b> · model hidden</small></div><div class="tags">${s.custom ? '<span class="tag">Custom</span>' : ''}<span class="risk" data-risk="${s.risk}">${s.risk}</span></div></div>
   <div class="stats">${statsRow(s)}</div>
-  <div class="act"><button class="btn-unlock" type="button">${ICON.lock} Unlock with Pro</button>${detailsBtn(s)}</div>
+  <div class="act"><button class="btn-unlock" type="button">${ICON.lock} Unlock with Builder</button>${detailsBtn(s)}</div>
 </article>`;
 
 const cardHTML = (s,i) => s.pro ? lockedHTML(s,i) : `<article class="card" data-id="${s.id}" style="${vars(s)};--i:${i}">
@@ -722,13 +731,14 @@ const sect = (id, klass, kicker, title, sub, inner, count='') => `<section class
   <div class="sect-h"><div>${kicker ? `<span class="sect-k">${kicker}</span>` : ''}<h2 id="${id}">${title}</h2>${sub ? `<p>${sub}</p>` : ''}</div>${count ? `<span class="count" id="${id}-n">${count}</span>` : ''}</div>
   ${inner}</section>`;
 
-let F = {risk:'', tf:'', coin:'', q:''}, queue = [], total = 0, moreEl = null, loading = false, gen = 0;
+let F = {assetCategory:'', risk:'', tf:'', coin:'', q:''}, queue = [], total = 0, moreEl = null, loading = false, gen = 0;
 const match = s => {
   const q = F.q.toLowerCase().replace(/\s+/g, ' ').trim();
-  return (!F.risk || s.risk === F.risk) && (!F.tf || s.tf === F.tf) && (!F.coin || s.base === F.coin)
+  return (!F.assetCategory || s.assetCategory === F.assetCategory)
+    && (!F.risk || s.risk === F.risk) && (!F.tf || s.tf === F.tf) && (!F.coin || s.base === F.coin)
     && (!q || (s.base + '/usdt').toLowerCase().includes(q.replace(/\s/g, '')) || s.name.toLowerCase().includes(q));
 };
-const filtered = () => !!(F.risk || F.tf || F.coin || F.q.trim());
+const filtered = () => !!(F.assetCategory || F.risk || F.tf || F.coin || F.q.trim());
 function hook(el, i){ const s = BY[el.dataset.id]; if (s) register(el.querySelector('canvas'), s, (i % 3)*90); }
 function countUpInit(el){
   const num = el.querySelector('.ret-num'); if (!num || num.dataset.ready) return; num.dataset.ready = '1';
@@ -756,7 +766,7 @@ function render(){
     const trend  = pick(list.filter(s => !s.pro).sort((a,b) => b.subs-a.subs), 3);
     const steady = pick(list.filter(s => !s.pro && s.ret > 0).sort((a,b) => b.dd-a.dd), 3);
     const grid = arr => `<div class="grid">${arr.map(cardHTML).join('')}</div>`;
-    html += sect('s-pro', 'sect-pro', '<i>✦</i> Members only', 'Pro picks', 'Our highest-conviction models. The returns are real; the logic unlocks with Pro.', grid(pro));
+    html += sect('s-pro', 'sect-pro', '<i>✦</i> Members only', 'Builder picks', 'Our highest-conviction models. The returns are real; the logic unlocks with Builder.', grid(pro));
     html += sect('s-trend', '', '<i>↗</i> Most copied', 'Trending this week', 'Where subscribers are piling in right now.', grid(trend));
     html += sect('s-steady', '', '<i>◆</i> Low drawdown', 'Steady earners', 'Positive returns with the smallest dips. Built for sleeping at night.', grid(steady));
     list = list.filter(s => !taken.has(s.id));
@@ -767,7 +777,11 @@ function render(){
   feedEl.innerHTML = html;
   moreEl = document.getElementById('more'); queue = list; loading = false;
   feedEl.querySelectorAll('.card').forEach(hook);
-  if (!total) moreEl.innerHTML = '<div class="empty">No strategies match that. Try another ticker or loosen a filter.<button class="clear" type="button" data-clear>Clear filters</button></div>';
+  if (!total){
+    const category = {crypto:'Crypto', stocks:'Stocks', forex:'Forex'}[F.assetCategory];
+    const categoryEmpty = category && !STRATS.some(s => s.assetCategory === F.assetCategory);
+    moreEl.innerHTML = `<div class="empty">${categoryEmpty ? `No ${category.toLowerCase()} strategies available yet. Explore another asset category.` : 'No strategies match that. Try another ticker or loosen a filter.'}<button class="clear" type="button" data-clear>Clear filters</button></div>`;
+  }
   sentEl.textContent = '';
   loadMore(true);
 }
@@ -799,14 +813,14 @@ const chipGroup = (id, key) => $(id).addEventListener('click', e => {
   $(id).querySelectorAll('.chip').forEach(x => x.setAttribute('aria-pressed', x === b));
   F[key] = b.dataset.v; render();
 });
-chipGroup('#chips', 'risk'); chipGroup('#tfs', 'tf');
+chipGroup('#asset-categories', 'assetCategory'); chipGroup('#chips', 'risk'); chipGroup('#tfs', 'tf');
 coinEl.addEventListener('change', () => { F.coin = coinEl.value; render(); });
 sortEl.addEventListener('change', render);
 let qT; qEl.addEventListener('input', () => { qWrap.classList.toggle('has', !!qEl.value); clearTimeout(qT); qT = setTimeout(() => { F.q = qEl.value; render(); }, 160); });
 $('#qx').addEventListener('click', () => { qEl.value = ''; qWrap.classList.remove('has'); F.q = ''; render(); qEl.focus(); });
 function clearAll(){
-  F = {risk:'', tf:'', coin:'', q:''}; qEl.value = ''; qWrap.classList.remove('has'); coinEl.value = '';
-  document.querySelectorAll('#chips .chip, #tfs .chip').forEach(x => x.setAttribute('aria-pressed', x.dataset.v === ''));
+  F = {assetCategory:'', risk:'', tf:'', coin:'', q:''}; qEl.value = ''; qWrap.classList.remove('has'); coinEl.value = '';
+  document.querySelectorAll('#asset-categories .chip, #chips .chip, #tfs .chip').forEach(x => x.setAttribute('aria-pressed', x.dataset.v === ''));
   render();
 }
 $('#clear').addEventListener('click', clearAll);
@@ -1004,7 +1018,7 @@ const CHIPS = ['Use a stricter stop loss', 'Only trade with the trend', 'Take pr
 function paintMod(){
   const s = M.s, K = KIND[s.kind], L = s.pro;
   modEl.innerHTML = `<div class="mod-h"><span class="orb" aria-hidden="true"></span><b>Modify strategy</b><button class="icon-btn" type="button" data-act="modclose" aria-label="Close">${ICON.x}</button></div>
-    ${L ? `<div class="gate"><span class="ring">${ICON.lock}</span><b>Make it yours with Pro</b><p>Copy this model and change its rules in plain words. Pro members only.</p><button class="btn-unlock" type="button">${ICON.lock} Unlock with Pro</button></div>`
+    ${L ? `<div class="gate"><span class="ring">${ICON.lock}</span><b>Make it yours with Builder</b><p>Copy this model and change its rules in plain words. Builder members only.</p><button class="btn-unlock" type="button">${ICON.lock} Unlock with Builder</button></div>`
     : `<div class="mod-msgs" id="modm"><div class="msg ai"><b>${s.name}</b> ${K.entry.charAt(0).toLowerCase() + K.entry.slice(1)} ${K.tp} What would you like to change?</div></div>
        <div class="chips2">${CHIPS.map(c => `<button type="button" data-chip>${c}</button>`).join('')}</div>
        <form class="mod-in" id="modf"><textarea id="modt" aria-label="Describe a change" placeholder="Describe a change to this strategy…"></textarea><button type="submit" aria-label="Send">${ICON.send}</button></form>
@@ -1031,10 +1045,10 @@ function paintBody(){
   bodyEl.scrollTop = 0;
   if (M.view === 'simple') simpleView(); else detailedView();
 }
-const gateSmall = (t, p) => `<div class="gate"><span class="ring">${ICON.lock}</span><b>${t}</b><p>${p}</p><button class="btn-unlock" type="button">${ICON.lock} Unlock with Pro</button></div>`;
+const gateSmall = (t, p) => `<div class="gate"><span class="ring">${ICON.lock}</span><b>${t}</b><p>${p}</p><button class="btn-unlock" type="button">${ICON.lock} Unlock with Builder</button></div>`;
 const gateBig = () => `<div class="dv-lock"><span class="ring">${ICON.lock}</span><b>Every trade, candle by candle</b>
-  <p>Pro members see each entry and exit on the chart, the full trade list, the return breakdown and the confidence score.</p>
-  <button class="btn-unlock" type="button">${ICON.lock} Unlock with Pro</button></div>`;
+  <p>Builder members see each entry and exit on the chart, the full trade list, the return breakdown and the confidence score.</p>
+  <button class="btn-unlock" type="button">${ICON.lock} Unlock with Builder</button></div>`;
 
 function statGrid(s, set){
   const T = set === 'bt' ? s.T.filter(t => !t.fwd) : set === 'fwd' ? s.T.filter(t => t.fwd) : s.T, S = stats(s, T);
@@ -1058,7 +1072,7 @@ function simpleView(){
         <div class="${L ? 'blur' : ''}"><span class="k">Entry conditions</span><p>${K.entry}</p>${K.x ? `<p class="xit"><span>Exit</span>${K.x}</p>` : ''}</div>
         <div class="${L ? 'blur' : ''}"><span class="k">Take profit</span><p class="pos">${K.tp}</p></div>
         <div class="${L ? 'blur' : ''}"><span class="k">Stop loss</span><p class="neg">${K.sl}</p></div>
-        ${L ? `<div class="gate row"><span class="ring">${ICON.lock}</span><div><b>Rules unlock with Pro</b><p>See exactly when this model enters and exits.</p></div><button class="btn-unlock" type="button">${ICON.lock} Unlock</button></div>` : ''}
+        ${L ? `<div class="gate row"><span class="ring">${ICON.lock}</span><div><b>Rules unlock with Builder</b><p>See exactly when this model enters and exits.</p></div><button class="btn-unlock" type="button">${ICON.lock} Unlock</button></div>` : ''}
       </div>
       <div class="panel eq-panel">
         <div class="eq-top">
@@ -1083,10 +1097,10 @@ function simpleView(){
       </div>
       <div class="panel about">
         <span class="k">Description</span>
-        <p class="${L ? 'blur' : ''}">${L ? 'This model’s description is available to Pro members only.' : s.desc}</p>
+        <p class="${L ? 'blur' : ''}">${L ? 'This model’s description is available to Builder members only.' : s.desc}</p>
         <div class="m-cta">
           <button class="btn-ghost" type="button" data-sid="${s.id}" data-kind="watch" aria-pressed="${FOLLOW.has(s.id)}">${ICON.star} ${FOLLOW.has(s.id) ? 'Favourited' : 'Add to favourites'}</button>
-          ${L ? `<button class="btn-unlock" type="button">${ICON.lock} Unlock with Pro</button>` : subBtn(s)}
+          ${L ? `<button class="btn-unlock" type="button">${ICON.lock} Unlock with Builder</button>` : subBtn(s)}
         </div>
       </div>
     </aside>
