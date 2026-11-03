@@ -77,14 +77,14 @@ button{cursor:pointer}
 .search.has .qx{display:grid}.search.has kbd{display:none}
 @media (hover:none){.search kbd{display:none}}
 .row1 .sel{height:46px;min-width:150px}
-.row2{display:flex;gap:12px 28px;flex-wrap:wrap;align-items:center}
+.row2{display:flex;gap:12px 20px;flex-wrap:wrap;align-items:center}
 .fgroup{display:flex;align-items:center;gap:10px;min-width:0}
 .flbl{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);flex:none}
 .clear{margin-left:auto;background:none;border:0;color:var(--muted);font-size:13.5px;text-decoration:underline;text-underline-offset:3px;padding:6px 0}
 .clear:hover{color:var(--fg)}
 .empty .clear{margin:12px auto 0;display:block}
 .chips{display:flex;gap:6px;flex-wrap:wrap}
-.chip{background:var(--surface);border:var(--line-width) solid var(--line-2);padding:5px 12px;border-radius:10px;color:var(--muted);font-size:13.5px;transition:all .15s}
+.chip{background:var(--surface);border:var(--line-width) solid var(--line-2);padding:5px 10px;border-radius:10px;color:var(--muted);font-size:13.5px;transition:all .15s}
 .chip:hover{color:var(--fg);border-color:rgba(214,236,226,.3)}
 .chip[aria-pressed="true"]{background:var(--fg);color:#0b0e0d;border-color:var(--fg)}
 .sel{background:var(--surface);border:var(--line-width) solid var(--line-2);border-radius:10px;padding:9px 32px 9px 12px;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238b9792' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
@@ -435,13 +435,6 @@ dialog[open] .m-shell{animation:pop .34s cubic-bezier(.2,.8,.2,1)}
   </section>
 
   <div class="tools" role="search">
-    <div class="row2">
-      <div class="fgroup fgroup--assets" role="group" aria-labelledby="asset-category-label"><span class="flbl" id="asset-category-label">Asset category</span><div class="chips" id="asset-categories">
-        <button class="chip" type="button" data-v="" aria-pressed="true">All</button>
-        <button class="chip" type="button" data-v="crypto" aria-pressed="false">Crypto</button>
-        <button class="chip" type="button" data-v="stocks" aria-pressed="false">Stocks</button>
-        <button class="chip" type="button" data-v="forex" aria-pressed="false">Forex</button></div></div>
-    </div>
     <div class="row1">
       <label class="search" id="qwrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
         <input id="q" type="search" placeholder="Search a ticker or strategy, e.g. BTC" autocomplete="off" spellcheck="false" aria-label="Search strategies">
@@ -467,6 +460,11 @@ dialog[open] .m-shell{animation:pop .34s cubic-bezier(.2,.8,.2,1)}
         <button class="chip" type="button" data-v="1h" aria-pressed="false">1h</button>
         <button class="chip" type="button" data-v="4h" aria-pressed="false">4h</button>
         <button class="chip" type="button" data-v="1d" aria-pressed="false">1D</button></div></div>
+      <div class="fgroup fgroup--assets" role="group" aria-labelledby="asset-category-label"><span class="flbl" id="asset-category-label">Asset category</span><div class="chips" id="asset-categories">
+        <button class="chip" type="button" data-v="" aria-pressed="true">All</button>
+        <button class="chip" type="button" data-v="crypto" aria-pressed="false">Crypto</button>
+        <button class="chip" type="button" data-v="stocks" aria-pressed="false">Stocks</button>
+        <button class="chip" type="button" data-v="forex" aria-pressed="false">Forex</button></div></div>
       <button class="clear" type="button" id="clear" hidden>Clear filters</button>
     </div>
   </div>
